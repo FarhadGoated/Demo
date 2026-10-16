@@ -1,0 +1,36 @@
+# A day through Hell
+
+Third-person narrative puzzle-adventure for NASCON. Seven fictional dream chambers explore accountability and change after a coma. They are not a doctrinal depiction of Hell.
+
+**Status: Current Stage 1 accepted by the developer after manual play and final button placement. Windows build passes with 0 errors / 0 warnings; standalone QA pending. Seven-chapter path unfinished. Gameplay completion precedes polish.**
+
+- Unity: **6000.3.13f1** (keep this version).
+- Rendering: Universal Render Pipeline **17.3.0**.
+- Input: Input System **1.19.0**, new input backend enabled.
+- Target: Windows desktop, keyboard and mouse; 12th-gen Core i7, 32 GB RAM, Intel Xe laptop. Start at 720p; performance unmeasured.
+- Submission: both game and trailer due Sunday, 18 October 2026, 9:30 AM Pakistan time, per latest user clarification.
+- Current scene: `Assets/HellSlice/Scenes/FirstPlayable.unity`; original SampleScene preserved.
+
+## Open and run
+
+1. Add this folder in Unity Hub and open using Unity 6000.3.13f1.
+2. Allow the existing packages to resolve; do not upgrade them for this prototype.
+3. Open `Assets/HellSlice/Scenes/FirstPlayable.unity` and press Play. The saved scene contains editable gameplay objects; no generator is needed.
+4. WASD moves, mouse looks, Left Shift runs, left mouse attacks, Space dodges, E interacts, and Esc pauses/resumes. Q slow time is locked pending a later-stage unlock decision. Projection/swapping is removed.
+5. Follow [Windows QA](docs/qa/stage-1-windows.md). Death restarts the current stage; earlier completion survives within the current run only.
+
+Save the scene, then choose **Tools > A Day Through Hell > Build Windows** outside Play Mode. Output: `Builds/Windows/A day through Hell.exe` plus required companion files. Share the complete QA ZIP, not the executable alone. Includes FirstPlayable and NextLanding; NextLanding is a transition destination, not a finished second chamber. Do not regenerate authored scenes.
+
+## Project guide
+
+- Resume work from [PROJECT_STATE](docs/PROJECT_STATE.md).
+- Review [ROADMAP](docs/ROADMAP.md), [GAME_DESIGN](docs/GAME_DESIGN.md), and [phase QA](docs/qa/phase-0.md).
+- Teammate: use [ASSET_REQUESTS](docs/ASSET_REQUESTS.md) and [ASSET_REGISTER](docs/ASSET_REGISTER.md).
+- Trailer collaborator: use [TRAILER_HANDOFF](docs/TRAILER_HANDOFF.md).
+
+## Source and submission
+
+Source repository: [FarhadGoated/Demo](https://github.com/FarhadGoated/Demo), selected by the developer; rename deferred. Track Assets and .meta files, Packages including the lockfile, ProjectSettings, and docs. Caches, local backups, logs, builds, and raw captures are excluded. Preserve the original repository history. No project-wide license selected; provenance remains in `docs/ASSET_REGISTER.md`.
+
+
+

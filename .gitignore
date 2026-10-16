@@ -1,0 +1,41 @@
+# Unity generated data (keep Assets, Packages, ProjectSettings, and their .meta files).
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Cc]aptures/
+/[Tt]railerRaw/
+
+# IDE and local machine files.
+.vs/
+.idea/
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+*.log
+.DS_Store
+Thumbs.db
+/sysinfo.txt
+/crashlytics-build.properties
+
+# Local credentials and signing material. Never place secrets in Unity assets.
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.pfx
+*.p12
+/LocalOnly/
