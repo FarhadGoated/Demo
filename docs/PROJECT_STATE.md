@@ -29,9 +29,10 @@ Open `Assets/HellSlice/Scenes/FirstPlayable.unity`; normal Play uses its authore
 - Windows x64 build completed 16 October at 23:46 Pakistan time: **Succeeded, 0 errors, 0 warnings**, 102,551,447 bytes, 1m45s. Both FirstPlayable and NextLanding included. Used the existing Build Windows command after saving the open scene; no regeneration or gameplay tests. Local report: `Logs/phase-1-build.txt`.
 - Standalone launch, traversal, death/progress recovery, ability availability, visual readability, and performance require QA. Historical smoke results are not current evidence; the adjusted smoke suite was not run.
 - Source destination chosen by the developer: `https://github.com/FarhadGoated/Demo`. Preserve the original initial commit and .gitattributes. Generated data/builds/local backups remain ignored.
+- QA source commit `270b810e18f4fec7a7a952ced14ca9a6f11852c6` pushed to main and verified against GitHub. Package: `Builds/QA/A-day-through-Hell-Stage1-QA-270b810-Windows.zip` (38,171,623 bytes, 181 entries). ZIP CRC and every packaged runtime file's SHA256 match build output. BUILD_INFO.txt and QA_README.txt are included; debug-only files excluded. Scene SHA256 remained unchanged after building/packaging.
 
 ## Next
 
-Package the current Windows build, push approved source to Demo, then STOP for `docs/qa/stage-1-windows.md` feedback. Fix blockers before advancing. Final Level 1 false-exit design, chambers 2–7, and hospital/waking-action ending remain incomplete. Assets, audio, decorative UI, presentation and trailer polish stay deferred until playable completion.
+Source pushed and Windows QA package ready. STOP for `docs/qa/stage-1-windows.md` feedback. Fix blockers before advancing. Final Level 1 false-exit design, chambers 2–7, and hospital/waking-action ending remain incomplete. Assets, audio, decorative UI, presentation and trailer polish stay deferred until playable completion.
 
 Latest QA fix: rescue doorway widened to 2.4m; overlapping buttress/seam moved beside the north partition. The developer then adjusted the second button and accepted the stage. That latest authored scene was saved and used unchanged for this build.
