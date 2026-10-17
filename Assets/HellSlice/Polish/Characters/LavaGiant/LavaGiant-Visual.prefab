@@ -14645,6 +14645,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3089971096259822034}
+  - component: {fileID: 2709061549546207040}
   m_Layer: 0
   m_Name: LavaGiant-Visual
   m_TagString: Untagged
@@ -14672,6 +14673,19 @@ Transform:
   - {fileID: 81641471533445000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2709061549546207040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818275270118094337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4409cfc0e33f94530845723b27f333e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HellSlice.Polish.PolishEnemyAnimator
+  Animator: {fileID: 5939251667085263199}
 --- !u!1001 &6818475763617202784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14778,9 +14792,9 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5936164619408031537}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 0ec017afe24dbe74e8ecea68c260a0c6, type: 3}
   m_Controller: {fileID: 9100000, guid: ff5453fffbb74394aa753397eff5bb4d, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

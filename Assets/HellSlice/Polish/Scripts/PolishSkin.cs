@@ -32,12 +32,14 @@ namespace HellSlice.Polish
         readonly List<Renderer> modelRenderers = new List<Renderer>();
         Vector3 lastPosition;
         int lastHealth;
-        float lastAttackFlash, hitFlash, deathTimer = -1;
+        float lastAttackFlash, hitFlash, deathTimer = -1, airTime;
         bool placeholder;
+        int carryLayer = -1;
         string lastState;
         static readonly int SpeedId = Animator.StringToHash("Speed"), AttackId = Animator.StringToHash("Attack"),
             DodgeId = Animator.StringToHash("Dodge"), HitId = Animator.StringToHash("Hit"), DeadId = Animator.StringToHash("Dead"),
-            CarryId = Animator.StringToHash("Carry");
+            CarryId = Animator.StringToHash("Carry"), GroundedId = Animator.StringToHash("Grounded");
+        const string DefaultPlayerController = "PolishPlayerAnimator"; // Polish/Resources, used when Controller is empty
         static readonly int RevealId = Shader.PropertyToID("_Reveal"), HitPropId = Shader.PropertyToID("_Hit");
 
         void Start()
@@ -51,6 +53,7 @@ namespace HellSlice.Polish
             instance = Instantiate(Model, transform);
             instance.name = "Visual model";
             instance.transform.localRotation = Quaternion.Euler(0, YawOffset, 0);
+            PolishBoneFollow.Attach(instance); // before any animation: offsets come from the default pose
             FitHeight();
             foreach (var r in instance.GetComponentsInChildren<Renderer>(true))
             {
@@ -81,7 +84,9 @@ namespace HellSlice.Polish
             if (animator == null) animator = instance.AddComponent<Animator>();
             animator.applyRootMotion = false;
             animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            if (Controller == null && Role == Kind.Player) Controller = Resources.Load<RuntimeAnimatorController>(DefaultPlayerController);
             if (Controller != null) animator.runtimeAnimatorController = Controller;
+            carryLayer = animator.runtimeAnimatorController != null ? animator.GetLayerIndex("Carry") : -1;
             lastPosition = transform.position;
             lastHealth = player != null ? player.Health : enemy != null ? enemy.Health : 0;
             ApplyReveal(true);
@@ -129,6 +134,10 @@ namespace HellSlice.Polish
                     if (player.AttackFlash > lastAttackFlash + .05f) animator.SetTrigger(AttackId);
                     animator.SetBool(DodgeId, player.Dodging);
                     animator.SetBool(CarryId, player.Carrying);
+                    if (carryLayer > 0) animator.SetLayerWeight(carryLayer, Mathf.MoveTowards(animator.GetLayerWeight(carryLayer), player.Carrying ? 1 : 0, dt * 5));
+                    // Short grace so CharacterController ground flicker on steps does not flash the air pose.
+                    airTime = player.Body != null && !player.Body.isGrounded ? airTime + dt : 0;
+                    animator.SetBool(GroundedId, airTime < .12f);
                 }
                 if (enemy != null)
                 {
