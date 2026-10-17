@@ -52,7 +52,7 @@ namespace HellSlice
             GUI.matrix = Matrix4x4.Scale(new Vector3(Screen.width / 1280f, Screen.height / 720f, 1));
             if (MinimalUI)
             {
-                if (s.Dead || s.Paused) GUI.Label(new Rect(420, 320, 500, 60), s.Dead ? "Restarting stage..." : "Paused - Esc / Resume", body);
+                if (s.Dead) GUI.Label(new Rect(420, 320, 500, 60), "Restarting stage...", body);
                 GUI.matrix = Matrix4x4.identity; return;
             }
             if (GameplayCanvas != null)

@@ -185,14 +185,20 @@ namespace HellSlice.Polish
                 label.color = Color.Lerp(PolishCine.TextMuted, PolishCine.TextMain, a);
             }
         }
-        void Back() { var s = SliceSession.Current; Show(false); if (s != null && s.Started && !s.Dead && !s.Transitioning) s.SetPaused(false); }
+        void Back()
+        {
+            var s = SliceSession.Current;
+            Show(false);
+            if (s == null || s.Dead || s.Transitioning) return;
+            if (!s.Started) s.Begin(); else s.SetPaused(false);
+        }
         void SetFocus(int i) { focus = Mathf.Clamp(i, 0, rows.Count - 1); }
         void StepFocused(int d) { rows[focus].Step(d); rows[focus].Refresh(); Save(); Cue(d > 0 ? 620 : 520); }
         void RefreshAll() { foreach (var r in rows) r.Refresh(); }
 
         // ================= launcher (works with the scenes' minimal UI, which draws no menu buttons) =================
-        RectTransform hint, pauseButton;
-        CanvasGroup hintGroup, pauseGroup;
+        RectTransform hint;
+        CanvasGroup hintGroup;
 
         void EnsureCanvas()
         {
@@ -213,18 +219,6 @@ namespace HellSlice.Polish
             PolishCine.Label(PolishCine.Stretch(hcap, "ESC"), "ESC", PolishCine.BodyBold, 19, Color.white, TextAnchor.MiddleCenter);
             PolishCine.Label(PolishCine.Rect(hint, "Label", new Vector2(1, .5f), Vector2.zero, new Vector2(132, 34), new Vector2(1, .5f)), "SETTINGS", PolishCine.Body, 22, new Color(.9f, .9f, .9f), TextAnchor.MiddleRight, 2);
 
-            // Big clickable button on the pause screen.
-            pauseButton = PolishCine.Rect(canvas.transform, "Settings button", new Vector2(.5f, .5f), new Vector2(0, -110), new Vector2(380, 76), new Vector2(.5f, .5f));
-            pauseGroup = pauseButton.gameObject.AddComponent<CanvasGroup>();
-            var bg = PolishCine.Img(pauseButton, PolishCine.White, Color.white, raycast: true);
-            var b = Clickable(pauseButton.gameObject, bg, Selectable.Transition.ColorTint, () => { Open(); Cue(440); });
-            var c = b.colors; c.normalColor = new Color(0, 0, 0, .55f); c.highlightedColor = new Color(1, .42f, .17f, .35f); c.pressedColor = new Color(1, .42f, .17f, .55f); c.selectedColor = c.normalColor; b.colors = c;
-            var edge = PolishCine.Rect(pauseButton, "Edge", new Vector2(0, 0), Vector2.zero, new Vector2(4, 0), new Vector2(0, 0)); edge.anchorMax = new Vector2(0, 1);
-            PolishCine.Img(edge, PolishCine.White, PolishCine.Accent);
-            var pcap = PolishCine.Rect(pauseButton, "Key", new Vector2(0, .5f), new Vector2(30, 0), new Vector2(60, 40), new Vector2(0, .5f));
-            PolishCine.Img(pcap, PolishCine.Keycap, new Color(.9f, .9f, .9f), sliced: true);
-            PolishCine.Label(PolishCine.Stretch(pcap, "ESC"), "ESC", PolishCine.BodyBold, 22, Color.white, TextAnchor.MiddleCenter);
-            PolishCine.Label(PolishCine.Rect(pauseButton, "Label", new Vector2(0, .5f), new Vector2(112, 2), new Vector2(250, 70), new Vector2(0, .5f)), "SETTINGS", PolishCine.Display, 50, Color.white, TextAnchor.MiddleLeft, 4);
         }
 
         void UpdateLauncher()
@@ -232,11 +226,11 @@ namespace HellSlice.Polish
             EnsureCanvas();
             var s = SliceSession.Current;
             bool usable = s != null && !s.Dead && !s.Transitioning && !IsOpen;
-            bool paused = usable && (s.Paused || !s.Started);
+            if (usable && (s.Paused || !s.Started)) { Open(); usable = false; }
             bool playing = usable && s.Running;
             scaler.matchWidthOrHeight = (float)Screen.width / Mathf.Max(1, Screen.height) < 1.77f ? 0 : 1;
             hintGroup.alpha = Mathf.MoveTowards(hintGroup.alpha, playing ? .55f : 0, Time.unscaledDeltaTime * 4);
-            pauseGroup.alpha = paused ? 1 : 0; pauseGroup.blocksRaycasts = paused; pauseGroup.interactable = paused;
+
         }
 
         // ================= construction =================
