@@ -16,6 +16,8 @@ namespace HellSlice
         float dodgeLeft, dodgeCooldown, attackCooldown, immunity, attackFlash, gravity;
         Vector3 dodgeDirection;
         float reveal, targetReveal;
+        /// <summary>Current 0..1 human appearance, read by visual layers.</summary>
+        public float Reveal => reveal;
         bool revealing;
         readonly Color dark = new Color(.035f, .05f, .08f);
         readonly Color revealed = new Color(.29f, .38f, .47f);
