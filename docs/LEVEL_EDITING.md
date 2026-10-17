@@ -8,12 +8,15 @@ Stop Play Mode before editing. In Unity's Project window, open `Assets/HellSlice
 | 2 | WeightOfPossession.unity |
 | 3 | FeedingFlame.unity |
 | 4 | ShadowOfTruth.unity |
+| 5 | WeightOfPride.unity |
 
 Expand `Level` in the Hierarchy. Persistent environment, lighting, player, camera, puzzles, hazards, progression, UI and systems are saved scene objects; Stage 1/3 also contain enemies. No generator is required. The scene's `useLegacyConstruction` is off and object hide flags are zero.
 
 Stage 3: corner pillars are under `Level/Puzzles`; the entity is under `Level/Enemies`; the forward gate and route are authored scene objects referenced by `Level/Systems/Gameplay Session` -> `SliceFeedingFlameStage`. That component exposes the four pillar references and fall timing. Entity Inspector exposes wind-up/recovery; projectile speed is on `Assets/HellSlice/Prefabs/FeedingFlame-Fireball.prefab`.
 
 Stage 4: stones and silhouettes are under `Level/Environment/Crossing 1–3`; each brazier section (handle, brazier, marked positions, inactive markings and memory) is under `Level/Puzzles/Section 1–3` with `SliceTruthBrazier`; the receipt (saved inactive) and Mara's case file are under `Level/Puzzles`; `SliceShadowTruthStage` on Gameplay Session references sections, receipt and exit gate. See docs/modules/stage-4-shadow-truth.md.
+
+Stage 5: banks, the upper route (stair, stub, collapsing segments) and the ruined tower are under `Level/Environment`; `Level/Puzzles` holds `Upper route collapse` (`SliceCollapsingRoute`), `Figure's side - behind the bars` (cell, bars, both levers, hold switch, passage door), `Trapped figure - helper` with its `Figure path` points, and the final-route bridge (saved inactive); the four flame rows are under `Level/Hazards`; the exit area volume, forward gate and completion trigger are under `Level/Progression`. `SlicePrideStage` on Gameplay Session references them. See docs/modules/stage-5-weight-of-pride.md.
 
 Move/resize objects using their Transforms and save with Ctrl+S. Preserve component/reference links when replacing visuals. Changes made during Play Mode are temporary.
 

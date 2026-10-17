@@ -6,6 +6,8 @@ Third-person narrative puzzle-adventure for NASCON. Seven fictional dream chambe
 
 Stage 2 implementation is now available in `Assets/HellSlice/Scenes/WeightOfPossession.unity`; Stage 1 exits there. Open it and press Play for [Stage 2 manual QA](docs/qa/stage-2-possession.md). Compilation/file checks passed, but Unity import and gameplay are unverified. The existing Windows QA ZIP predates Stage 2; no new build has been made.
 
+Stage 5 "The Weight of Pride" is in `Assets/HellSlice/Scenes/WeightOfPride.unity` (branch stage-5-weight-of-pride); Stage 4 exits there. See [Stage 5 manual QA](docs/qa/stage-5-weight-of-pride.md).
+
 - Unity: **6000.3.13f1** (keep this version).
 - Rendering: Universal Render Pipeline **17.3.0**.
 - Input: Input System **1.19.0**, new input backend enabled.
