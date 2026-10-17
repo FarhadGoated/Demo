@@ -14,7 +14,10 @@ namespace HellSlice
         void Update()
         {
             var s = SliceSession.Current; Prompt = "";
-            if (s == null || !s.Running || s.landing) return;
+            if (s == null || !s.Running) return;
+            if (s.Possession != null) { Prompt = s.Possession.HandleInteraction(s); return; }
+            if (s.FeedingFlame != null) { Prompt = s.FeedingFlame.HandleInteraction(s); return; }
+            if (s.landing) return;
             var w = s.World; var p = s.Player;
             if (p.Carrying)
             {

@@ -1,0 +1,23 @@
+# Stage 2 — The Weight of Possession
+
+Outcome: return two valuables to restore a safe route across a short lava chamber, then reach its exit. Fictional dream about greed/responsibility; no doctrinal classification.
+
+Layout: entry island (spawn, gold cube and matching square receptacle); first return raises a short bridge to a second island. A blue sphere rests beyond one existing cycling flame strip; carry it back through the strip to its round blue receptacle. Second return raises the final bridge and opens the exit. Islands have room to wait safely. No boundary walls, extra enemies, or long return trips.
+
+Rules: E picks up one object, carrying uses CarrySpeed 2.5 vs walk 4.3; grounded jumping is allowed while carrying and attack is unavailable. Shift sprint is removed. E at the matching receptacle permanently returns it; elsewhere E releases it at its current held position. It falls vertically onto ground and can be picked up again. Lava permanently loses it for this attempt, preventing completion until current-stage restart. Matching colour AND shape identify each pair. Returns are one-way until death. Timed flames work without slow time. Space is grounded jump; Q is locked (unlock stage 0); no separate Time Dash or projection.
+
+Dependencies: existing player prefab, camera, SliceSession/current-scene reload, SliceWorld material isolation/exit test, SliceInteraction prompt/input, SliceHazard, SliceLava and SliceStageProgress. Add only a stage-specific two-object controller and per-valuable references. Saved scene: Assets/HellSlice/Scenes/WeightOfPossession.unity. Stage 1 changes only its NextScene string after user save confirmation; no layout/prefab edits. Original NextLanding remains preserved.
+
+Completion: all returns open route/gate and preview one additional reveal step. Crossing exit commits stage 2 once through existing HashSet. If no Stage 3 is configured, show an essential completion message and keep movement available; no invalid scene load. Earlier completions survive death; current puzzle/reveal preview, objects, bridges and hazard clock reset on scene reload. Replay completion never stacks reveal.
+
+Inspector: valuable pickup transform, matching receptacle, placement transform, restored route object and optional prerequisite; controller required objects/exit gate; session StageNumber=2, SlowTimeUnlockStage=0; World NextScene empty until Stage 3 exists. Geometry, lava, bridge targets, camera and UI remain editable.
+
+Shared art: retain existing skybox/lighting/material references and reusable player. Teammate needs two matching valuables/receptacles, bridge/ruin meshes and shared lava material; preserve component roots when replacing visuals.
+
+Verification: targeted compilation and serialized scene/reference checks; Unity import, physical traversal, timing, death, transition, rendering and performance require manual QA. Stop for feedback before Stage 3.
+
+Implemented 17 October: SlicePossessionStage delegates through existing interaction/session components; SliceValuable holds matching references and drop/loss state. Runtime/editor compilation passes with no diagnostics. Scene checks pass (165 serialized records); original landing unchanged and Stage 1 changes only NextScene. Actual Editor import, save/reopen and gameplay are unverified. See docs/qa/stage-2-possession.md. No current Windows build or GitHub push performed in this phase.
+
+## Parkour revision (17 October)
+
+Space becomes a grounded jump, including while carrying; Shift sprint is removed. Keep Q locked; no separate Time Dash binding was found. Target three short routes within the existing layout: a small gold-return ledge jump; two raised stones replacing the gold-opened bridge; two differently spaced/raised stones replacing the blue-opened exit bridge. Retain valuables, flame island, exit, lava and shared assets. Route groups remain inactive until their existing matching return. Use <=0.9m gaps and <=0.35m upward changes, sized for CarrySpeed 2.5 with JumpHeight 1.5 / Gravity 24. Return movement and local dropping stay available; death resets all route groups through scene reload. Scene patch applied after save confirmation, changing only required geometry/references. Existing bridges are retained as the first stones under inactive route groups, with one new stone each. Gold socket is raised 0.25m and its interaction range is 1.1m to require crossing the gap. The flame island and blue collectible/receptacle placements remain unchanged. Saved references and two-way carrying clearance checks pass; manual collision/jump QA is pending. See docs/qa/guardian-parkour.md.

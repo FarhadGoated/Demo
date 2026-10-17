@@ -1,33 +1,13 @@
 # Module: combat-enemies
 
-Phase: 1. Status: implemented; verification incomplete.
+Stage 1 has one authored Manifestation prefab instance. Legacy World.Build is disabled in saved scenes. Enemy.Start records the placed transform as its return position; it does not replace that placement. The previous 11m chase radius covered the player start despite the enemy being authored near the ore.
 
-## Purpose and player experience
-One short readable encounter releases a resource without granting narrative completion.
+Fix: position the scene instance beside the ore; DetectionRange 4.5m and GuardRadius 5m keep it guarding that area until approached. These Inspector fields control detection and the player's allowable distance from the enemy's authored starting position. Existing windup, recovery, wall checks, health and core-release logic remain. Death reload restores the saved scene instance, including health and position.
 
-## Scope and exclusions
-One chasing enemy, melee attack, dodge, health and death. No bosses/combos or weapon inventory.
+LMB attacks. Space now jumps, not dodge; move clear of the red strike warning. Shift triggers the existing dodge; no new combat system or Time Dash binding is introduced. Enemy defeat still does not complete the stage.
 
-## Controls, states and behaviour
-LMB attacks within reach and facing cone; cooldown prevents repeated damage. Enemy chases in its arena then telegraphs, strikes, recovers. Dodge grants short invulnerability.
+QA: one enemy near ore, no immediate charge from spawn, approach/strike/retreat, death and restart restore the authored guard. Targeted code/reference checks do not substitute for Play Mode verification.
 
-## Failure and recovery
-Enemy returns toward arena if target escapes; player death offers retry. Damage interrupts projection; pause freezes all combat timers.
+Stage 3 only: FireballPrefab and PillarEncounter configure a stationary entity. It telegraphs, aims when firing, and uses straight swept-collision projectiles. Four assigned pillars each remove one quarter strength once; ordinary attacks cannot bypass them. FireWindup, FireRecovery, FireOrigin and projectile Speed/Radius/Damage are editable. Stage 1 melee behavior and scene/prefab setup stay unchanged. Manual QA pending.
 
-## Interfaces and dependencies
-SliceEnemy and SlicePlayer share SliceSession; enemy uses WorldDelta, player uses real delta. Raycasts prevent attacks through walls.
-
-## Unity setup
-Enemy spawned at courtyard z=8, with constrained arena; primitive figure and visual windup marker.
-
-## Acceptance criteria
-Enemy responds to slow time; attack/dodge feedback clear; kill releases piece but never exit gate; death/retry resets health/enemy.
-
-## Actual implementation and known limitations
-Implemented in SliceEnemy.cs and SlicePlayer.cs (runtime scripts under Assets/HellSlice/Scripts). Primitive assets and keyboard/mouse remain the baseline. Latest existing editor suite passes 34/34 after test-focus correction. User reports working controls; continuous manual route remains pending. See docs/qa/phase-1.md for current evidence and pending checks. The current UI revision compiled; runtime QA remains pending.
-
-## Presentation-ready explanation
-Planned: One short readable encounter releases a resource without granting narrative completion. Do not describe as verified until recorded checks pass.
-
-
-
+Stage 1 art correction: FirstPlayable now contains Cyclops-Visual as an added child of the existing Manifestation scene instance, assigned to Appearance. The existing primitive body renderers are disabled only in this scene; the warning ring, collider, position, detection, health and combat logic remain. The 1.8m visual follows its parent's chase/turns and existing defeat behavior. Its local transform/material are editable without moving the gameplay root. No animation was supplied. Stage 3 has reverted to its large primitive visual. Check chase alignment, textures, warning visibility, defeat and restart in Play Mode.

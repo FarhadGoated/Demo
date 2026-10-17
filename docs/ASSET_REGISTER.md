@@ -1,6 +1,6 @@
 # Asset register
 
-No teammate/third-party gameplay assets have been integrated. Original procedural placeholder geometry/materials and synthesized tones are now implemented under Assets/HellSlice. This is an inventory and review ledger, not legal clearance. Record evidence before public source publication.
+The partner's Cyclops model/textures are integrated as Stage 1's ore guardian visual. Other current artwork remains placeholder geometry/materials under Assets/HellSlice. This is an inventory and review ledger, not legal clearance. Record evidence before public source publication.
 
 | ID | Files / purpose | Source / creator / tool | License and attribution | Public source redistribution | Integration status |
 | --- | --- | --- | --- | --- | --- |
@@ -16,3 +16,9 @@ No teammate/third-party gameplay assets have been integrated. Original procedura
 For each incoming asset add: ID; paths; purpose; source URL; creator/tool and version; date; license name and stored evidence; attribution string; whether raw files may appear in a public source repository; modifications; dependency/rig requirements; validation results; reviewer/status. Pending, prohibited, or unknown rights must block public source inclusion.
 
 New primitives/materials/code created for the project should also be identified when added. No blanket project license is granted here. Maintain final player-facing credits during implementation and verify against this register before submission.
+
+17 October integration check: the pushed branch currently contains only A06 Cyclops files. A01 BusinessMan, SHADER-01 and FONT-01 entries above describe partner work not yet present in this checkout/push. Preserve those entries as planned/pending; do not claim those assets are integrated. Source Cyclops import includes the author's required license/credit text.
+
+A06 integration corrected to Stage 1 per developer direction: Cyclops-URP.mat assigns supplied base colour/normal textures; Cyclops-Visual.prefab preserves the model link and normalizes height to 1.8m. FirstPlayable's existing ore guardian now has this visual as a child at local identity, with Appearance assigned. Stage 3 uses its large primitive visual again. Unity 6000.3.13f1 isolated model import/export previously succeeded; scene import/rendering/performance still need QA. Existing source license retained; full attribution remains in README. No additional animation or third-party assets added.
+
+Latest remote fetch (17 October) still ends at c62457c on feature/visual-polish-ui. HellSky/background assets are not in any fetched branch; shared use across levels is approved once supplied. No substitute shader or scenery was created.

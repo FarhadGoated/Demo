@@ -89,9 +89,10 @@ namespace HellSlice
             yield return Hold(Key.W, .35f);
             float slowedTravel = s.Player.transform.position.z - initialZ;
             Check(slowedTravel > normalTravel * .65f && slowedTravel < normalTravel * 1.5f, "Player movement stays responsive during slow time");
-            yield return Hold(Key.Space, .01f);
-            Check(s.Player.Dodging && s.Player.DodgeCooldown > 0, "Space input starts dodge and cooldown");
-            yield return new WaitForSecondsRealtime(.4f);
+            float groundY = s.Player.transform.position.y;
+            yield return Hold(Key.Space, .1f);
+            Check(s.Player.transform.position.y > groundY + .15f && !s.Player.Dodging, "Space input starts a grounded jump instead of dodge");
+            yield return new WaitForSecondsRealtime(.8f);
             s.Clock.ResetState();
             var enemyController = s.Enemy.GetComponent<CharacterController>();
             enemyController.enabled = false; s.Enemy.transform.position = new Vector3(0, 0, 8); enemyController.enabled = true;
@@ -138,12 +139,12 @@ namespace HellSlice
             Check(s.Assist() && s.GateOpen && !s.Assist(), "Assistance opens gate exactly once after prerequisites");
             s.World.UpdateMechanisms(s); Warp(s.Player, new Vector3(0, 0, 45));
             yield return new WaitUntil(() => SliceSession.Current != s && SliceSession.Current != null);
-            Check(SceneManager.GetActiveScene().name == "NextLanding" && SliceSession.Current.landing, "Exit loads separate next-stage scene");
+            Check(SceneManager.GetActiveScene().name == "WeightOfPossession" && SliceSession.Current.Possession != null, "Exit loads separate Stage 2 scene");
             s = SliceSession.Current;
             int completed = s.EarlierCompletedStages;
             s.Restart();
             yield return new WaitUntil(() => SliceSession.Current != s && SliceSession.Current != null);
-            Check(SliceSession.Current.landing && SliceSession.Current.EarlierCompletedStages == completed, "Restart keeps current stage and earlier progress");
+            Check(SceneManager.GetActiveScene().name == "WeightOfPossession" && SliceSession.Current.EarlierCompletedStages == completed, "Restart keeps current stage and earlier progress");
             yield return SceneManager.LoadSceneAsync("FirstPlayable"); yield return null;
             s = SliceSession.Current; s.Begin();
             s.PlacePiece(); s.Player.Carrying = true;

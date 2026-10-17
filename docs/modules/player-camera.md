@@ -1,33 +1,9 @@
 # Module: player-camera
 
-Phase: 1. Status: implemented; verification incomplete.
+Current controls: WASD camera-relative walk, mouse orbit, Space grounded jump, Shift dodge, E interaction, left mouse attack, Esc pause. Shift sprint removed. No separate Time Dash action/binding exists in the inspected input map; Q slow time is retained and locked in both playable stages. Dodge was only unbound, not removed. Left and right Shift now bind the existing Dodge action: 0.28s directional movement, 0.95s cooldown, existing damage immunity, disabled while carrying. Shift never sprints or activates slow time/Time Dash.
 
-## Purpose and player experience
-Responsive third-person navigation and a readable silhouette.
+SlicePlayer reuses the existing CharacterController. JumpHeight (default 1.5m), Gravity (24m/s2), WalkSpeed (4.3m/s) and CarrySpeed (2.5m/s) are Inspector fields. Grounded press only; holding Space does not repeat jumps and airborne presses do not double-jump. Carrying allows the same jump height with slower horizontal speed. Ceiling contact cancels upward velocity; airborne stepOffset is zero to avoid climbing platform sides. Old serialized RunSpeed is retained hidden but has no effect.
 
-## Scope and exclusions
-CharacterController walk/run, camera orbit with obstruction handling and dodge. No jumping, climbing, gamepad or animation rig yet.
+Authored player/camera prefab links remain; no runtime rebuild. Camera and player retain unscaled time. Death reloads the current authored stage. No new animation, UI or tools.
 
-## Controls, states and behaviour
-WASD moves relative to camera, mouse orbits, Shift runs, Space dodges. One controller owns body/projection input. Camera and player use unscaled delta time.
-
-## Failure and recovery
-Pause/focus loss releases cursor; retry restores spawn. Dodge cannot cross colliders. Camera avoids solid geometry.
-
-## Interfaces and dependencies
-SlicePlayer, SliceCamera, SliceInput and SliceSession. Body layer 8, projection layer 9, shadow barrier layer 10; layout uses these project-owned slots.
-
-## Unity setup
-Generated FirstPlayable scene contains SliceSession; runtime constructs player and camera. Values exposed as fields; layout in SliceWorld.
-
-## Acceptance criteria
-Walk all lanes and orbit against walls without penetration; dodge visibly moves and cooldown prevents spam; body remains still during projection.
-
-## Actual implementation and known limitations
-Implemented in SlicePlayer.cs and SliceCamera.cs (runtime scripts under Assets/HellSlice/Scripts). Primitive assets and keyboard/mouse remain the baseline. Latest existing editor suite passes 34/34 after test-focus correction. User reports working controls; continuous manual route remains pending. See docs/qa/phase-1.md for current evidence and pending checks. The current UI revision compiled; runtime QA remains pending.
-
-## Presentation-ready explanation
-Planned: Responsive third-person navigation and a readable silhouette. Do not describe as verified until recorded checks pass.
-
-
-
+QA: grounded/held/airborne Space, head clearance, carrying jumps, Shift dodge/cooldown without sustained sprint, camera follow, lava reset. Compilation and geometry checks are distinct from physical Unity QA.

@@ -91,7 +91,7 @@ namespace HellSlice
             {
                 GUI.Label(new Rect(330, 163, 620, 70), "CONTROLS", title);
                 GUI.Label(new Rect(330, 240, 620, 310),
-                    "WASD - Move / Mouse - Look\n\nShift - Run / Space - Dodge\n\nLeft mouse - Attack\n\nE - Interact" + (s.SlowTimeAvailable ? "\n\nQ - Slow time" : "") + "\n\nEsc - Pause / resume", body);
+                    "WASD - Move / Mouse - Look\n\nSpace - Jump / Shift - Dodge\n\nLeft mouse - Attack\n\nE - Interact" + (s.SlowTimeAvailable ? "\n\nQ - Slow time" : "") + "\n\nEsc - Pause / resume", body);
                 if (GUI.Button(new Rect(330, 575, 620, 48), "Back", button)) showControls = false;
                 return;
             }
@@ -101,7 +101,7 @@ namespace HellSlice
                 "A fictional dream about responsibility. Defeat the manifestation, restore the crossing, and help the figure who is still waiting. Combat alone cannot open the exit.";
             GUI.Label(new Rect(330, 240, 620, 105), description, body);
             if (!s.Started && !SliceSession.InstructionsSeen)
-                GUI.Label(new Rect(330, 345, 620, 65), "WASD + mouse / E interact / Left-click attack\nSpace dodge / Shift run / Esc pause", small);
+                GUI.Label(new Rect(330, 345, 620, 65), "WASD + mouse / E interact / Left-click attack\nSpace jump / Shift dodge / Esc pause", small);
             if (!s.Dead && GUI.Button(new Rect(330, 420, 300, 48), s.Started ? "Resume" : "Begin", button)) s.Begin();
             if (GUI.Button(new Rect(s.Dead ? 330 : 650, 420, 300, 48), "Restart chamber", button)) s.Restart();
             if (GUI.Button(new Rect(330, 487, 300, 48), "Controls", button)) showControls = true;

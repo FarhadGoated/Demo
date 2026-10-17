@@ -27,6 +27,9 @@ namespace HellSlice
         public SliceInteraction Interaction { get; private set; }
         public SliceWorld World { get; private set; }
         public SliceFeedback Feedback { get; private set; }
+        public SlicePossessionStage Possession { get; private set; }
+        public SliceFeedingFlameStage FeedingFlame { get; private set; }
+        public bool StageCompleted { get; private set; }
         [field: SerializeField] public SliceEnemy Enemy { get; set; }
         public bool Started { get; private set; }
         public bool Paused { get; private set; }
@@ -39,8 +42,8 @@ namespace HellSlice
         public bool GateOpen => PiecePlaced && SwitchLatched && Assisted;
         public string Message { get; private set; }
         float messageTime;
-        public string Objective => landing ? "A FIRST STEP / The next chamber awaits" :
-            Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Dodge its red warning." :
+        public string Objective => FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
+            Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Move clear of its red warning." :
             !PiecePlaced ? "02 / Carry the released ember core to the socket." :
             !SwitchLatched ? "03 / Cross the flame lane. Operate the rescue mechanisms." :
             !Assisted ? "04 / Help the trapped figure." : "05 / The way opens through assistance. Enter the light.";
@@ -56,6 +59,8 @@ namespace HellSlice
             Feedback = GetComponent<SliceFeedback>();
             World = GetComponent<SliceWorld>();
             Interaction = GetComponent<SliceInteraction>();
+            Possession = GetComponent<SlicePossessionStage>();
+            FeedingFlame = GetComponent<SliceFeedingFlameStage>();
             if (useLegacyConstruction)
             {
                 if (Clock == null) Clock = gameObject.AddComponent<SliceTime>();
@@ -86,6 +91,8 @@ namespace HellSlice
             Clock.Tick(Time.unscaledDeltaTime);
             if (messageTime > 0) messageTime -= Time.unscaledDeltaTime;
             if (Input.Slow && SlowTimeAvailable && Clock.Activate()) { Notify("TIME BENDS / Move while the world hesitates."); Feedback.Cue(300); }
+            if (Possession != null) { Possession.Tick(this); return; }
+            if (FeedingFlame != null) { FeedingFlame.Tick(this); return; }
             if (landing) return;
             if (World.RescueSwitch != null)
             {
@@ -98,10 +105,19 @@ namespace HellSlice
             World.UpdateMechanisms(this);
             if (GateOpen && World.ExitContains(Player.transform.position))
             {
-                SliceStageProgress.Complete(StageNumber);
-                Transitioning = true; Clock.ResetState(); UnlockCursor();
-                StartCoroutine(LoadStage(World.NextScene));
+                CompleteStage();
             }
+        }
+        public void CompleteStage()
+        {
+            if (!Running || StageCompleted) return;
+            StageCompleted = true;
+            SliceStageProgress.Complete(StageNumber);
+            Clock.ResetState();
+            // An unfinished next chamber is a completion state, never an invalid scene load.
+            if (string.IsNullOrWhiteSpace(World.NextScene) || !Application.CanStreamedLevelBeLoaded(World.NextScene)) return;
+            Transitioning = true; UnlockCursor();
+            StartCoroutine(LoadStage(World.NextScene));
         }
         public void Begin() { InstructionsSeen = true; Started = true; SetPaused(false); }
         public void SetPaused(bool value)

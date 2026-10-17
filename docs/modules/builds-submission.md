@@ -11,3 +11,5 @@ Source destination authorized by the developer: FarhadGoated/Demo. Preserve exis
 16 October 2026, 23:46 Pakistan time: current build succeeded, 0 errors, 0 warnings, 102,551,447 bytes, 1m45s. Developer reports Stage 1 complete after the final button move. Standalone launch/gameplay/performance unverified; see docs/qa/stage-1-windows.md. NextLanding is a transition destination and the seven-stage game is unfinished.
 
 Build compilation/package integrity are assistant checks. Gameplay QA belongs to the developer/tester; stop for feedback before advancing. No new editor tooling or gameplay changes in this release phase.
+
+Stage 2 update (17 October): the existing Windows command now includes FirstPlayable, WeightOfPossession and preserved NextLanding. Stage 1 exits to WeightOfPossession. No rebuild this phase; the 270b810 QA ZIP remains the prior Stage 1 artifact. Use docs/qa/stage-2-possession.md for current Editor QA before requesting a new distributable.
