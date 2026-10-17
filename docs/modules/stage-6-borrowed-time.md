@@ -1,4 +1,6 @@
-# Stage 6 — Borrowed Time
+# Archived stage concept — Borrowed Time (not playable)
+
+Status (17 October 2026): this saved scene is retained for reference and user edits, but disabled in build settings and omitted from the build command. It is not part of the six-stage playable path. TheReturn (formerly chapter 7) is now final Stage 6; Stage 5 targets it directly. Shared code and assets remain intact.
 
 Fictional coma nightmare about delaying help until others suffer; no religious punishment claim. Saved scene: `Assets/HellSlice/Scenes/BorrowedTime.unity`. No combat, escort AI, projection or new player abilities.
 
@@ -12,4 +14,4 @@ StageNumber=6, SlowTimeUnlockStage=3; Space jump, Shift dodge and Q preserved. D
 
 Editable objects live below Level/Environment, Puzzles, Hazards and Progression. Gameplay Session's `SliceBorrowedTimeStage` exposes deadline/grace, three rescues, hazards, obstacle and gate. Each `SliceTimedRescue` exposes figure, restraints, safe walkway, escape waypoints/speed, interaction range and fire positions. `SliceMovingObstacle` exposes its collider, end anchors, crossing/dwell timing. No runtime scene generation or persistent authoring tools.
 
-Stage 5 (WeightOfPride) is now imported from Claude's branch and its `SliceWorld.NextScene` targets `BorrowedTime`. Both are included in build settings/the existing build command; transition QA awaits the user.
+Historical note: Stage 5 previously targeted this scene and both were included in the build. That connection is removed; the scene is now disabled and excluded from the build.

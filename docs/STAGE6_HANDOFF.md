@@ -1,5 +1,7 @@
 # Stage 6 continuation handoff
 
+Status (17 October 2026): BorrowedTime remains saved for reference but is not a playable stage. It is disabled in build settings and excluded from the build command. TheReturn (formerly chapter 7) is now final Stage 6; Stage 5 targets it directly. Do not follow the implementation instructions below unless the user explicitly restores this concept.
+
 Updated 17 October 2026. Continuation is complete and Stage 6 is saved for manual QA. **The historical investigation below is superseded:** the last isolated run passed 81 checks; startup failure was harness focus pause, traversal failure was scripted navigation into the closed gate, and tiny labels were enlarged. Human timer fairness/readability and Stage 5 integration remain unverified/pending. See `docs/qa/stage-6-borrowed-time.md`.
 
 **New user workflow:** do not launch Unity, run gameplay automation, capture screenshots or repeatedly inspect UI unless explicitly requested. After future code changes, at most one targeted compile without Unity if available, plus relevant code review. Do not repeat successful checks without a change warranting it. Keep docs/report brief and stop for manual QA feedback. Do not execute the historical test commands below under the new workflow.

@@ -53,7 +53,7 @@ namespace HellSlice
                     if (jet.Flames != null) jet.Flames.gameObject.SetActive(false);
                 }
                 if (Obstacle != null) Obstacle.Stop();
-                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 7f, false);
+            session.Player.SetReveal((session.EarlierCompletedStages + 1) / 6f, false);
             }
             if (AllRescued)
             {

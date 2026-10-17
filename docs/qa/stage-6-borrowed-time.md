@@ -1,6 +1,8 @@
-# Stage 6 manual QA — Borrowed Time
+# Archived scene QA — Borrowed Time (not in playable path)
 
-Open `Assets/HellSlice/Scenes/BorrowedTime.unity` alone and enter Play. Space jumps, Shift dodges, E rescues, Q slows time, Esc opens the existing settings/Respawn screen.
+This scene is disabled in build settings and omitted from the build command. The following notes apply only if the user explicitly asks to test this archived scene; they are not acceptance criteria for the incoming final Stage 6.
+
+Open `Assets/HellSlice/Scenes/BorrowedTime.unity` alone and enter Play only for explicit archive review. Space jumps, Shift dodges, E rescues, Q slows time, Esc opens the existing settings/Respawn screen.
 
 - **Fairness and clarity:** From the hub, identify all three captives and the jump, flame and pillar routes. Read the signs/HUD before moving. Try a first run without Q, then a different route order. The 100-world-second deadline includes 8 seconds before fronts move; check there is reasonable reading/waiting margin and no required damage or blind jumps.
 - **Slow time:** Use Q while watching a front and a flame jet/pillar. Each should slow together while movement/jump/dodge remain responsive. Check recharge and pause/resume.
@@ -9,4 +11,4 @@ Open `Assets/HellSlice/Scenes/BorrowedTime.unity` alone and enter Play. Space ju
 - **Softlocks:** Wait against the moving pillar, back away, pass either side and return on every opened walkway. Walk around the closed hub gate when returning from the west/east. Try the exit early: it must not complete the stage. Remaining routes stay accessible in any rescue order.
 - **Completion:** After all three releases, return to the nearby hub exit. Verify one transformation increment and one Stage 6 completion, including standing/re-entering the trigger. No Stage 7 is configured yet. Stage 5 → Stage 6 transition remains pending until Claude supplies Stage 5.
 
-Unverified: rendered readability, human first-attempt timing, all route-order/edge-case softlocks and Stage 5 transition. Earlier automated traversal checks passed before the user changed the verification workflow; do not rerun automation or launch Unity without an explicit request. Await user QA feedback.
+Historical verification note: rendered readability, human first-attempt timing, route-order/edge-case softlocks and transitions were not fully verified. Do not run automation or launch Unity without explicit request.

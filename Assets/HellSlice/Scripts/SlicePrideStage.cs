@@ -120,7 +120,7 @@ namespace HellSlice
                 GateOpen = true;
                 if (ForwardGate != null) ForwardGate.SetActive(false);
                 session.Feedback.Cue(880);
-                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 7f, false);
+                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 6f, false);
                 Show(MergeLine);
             }
             if (GateOpen) sinceMerge += Time.unscaledDeltaTime;

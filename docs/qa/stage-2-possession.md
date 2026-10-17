@@ -1,5 +1,7 @@
 # Stage 2 manual QA — stop before Stage 3
 
+- Visual transfer: stone/ruins and lava skyline render correctly; gold/blue cues stay readable. Returning each valuable reveals its route and matching inlays together; gate masonry disappears with the opened gate. Check rubble does not hide safe landing edges, and completion still loads FeedingFlame. Stage 1's newly fixed positions should remain as saved.
+
 Latest controls/platform revision supersedes the older Space-dodge/Shift-run checks below: Space is grounded jump, Shift sprint removed. Use `guardian-parkour.md` for current QA and route expectations.
 
 Save ongoing work, allow Unity to import, then open `Assets/HellSlice/Scenes/WeightOfPossession.unity` and press normal Play. No Tools generator required. If Unity asks to reload externally modified FirstPlayable, reload the saved file so its new destination is retained. Stage 2 is already listed in build settings.

@@ -20,7 +20,8 @@ namespace HellSlice
             if (s.FeedingFlame != null) { Prompt = s.FeedingFlame.HandleInteraction(s); return; }
             if (s.ShadowTruth != null) { Prompt = s.ShadowTruth.HandleInteraction(s); return; }
             if (s.Pride != null) { Prompt = s.Pride.HandleInteraction(s); return; }
-            if (s.Chase != null) { Prompt = s.Chase.HandleInteraction(s); return; }
+            if (s.TheReturn != null) { Prompt = s.TheReturn.HandleInteraction(s); return; }
+            if (s.Chase != null && !s.Chase.ChaseComplete) { Prompt = s.Chase.HandleInteraction(s); return; }
             if (s.landing) return;
             var w = s.World; var p = s.Player;
             if (p.Carrying)

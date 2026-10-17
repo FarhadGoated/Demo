@@ -33,6 +33,7 @@ namespace HellSlice
         public SliceBorrowedTimeStage BorrowedTime { get; private set; }
         public SlicePrideStage Pride { get; private set; }
         public SliceChaseStage Chase { get; private set; }
+        public SliceReturnStage TheReturn { get; private set; }
         public bool StageCompleted { get; private set; }
         [field: SerializeField] public SliceEnemy Enemy { get; set; }
         public bool Started { get; private set; }
@@ -46,10 +47,10 @@ namespace HellSlice
         public bool GateOpen => PiecePlaced && SwitchLatched && Assisted;
         public string Message { get; private set; }
         float messageTime;
-        public string Objective => Chase != null ? Chase.Objective : Pride != null ? Pride.Objective : BorrowedTime != null ? BorrowedTime.Objective : ShadowTruth != null ? ShadowTruth.Objective : FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
-            Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Move clear of its red warning." :
-            !PiecePlaced ? "02 / Carry the released ember core to the socket." :
-            !SwitchLatched ? "03 / Cross the flame lane. Operate the rescue mechanisms." :
+        public string Objective => TheReturn != null ? TheReturn.Objective : Chase != null && !Chase.ChaseComplete ? Chase.Objective : Pride != null ? Pride.Objective : BorrowedTime != null ? BorrowedTime.Objective : ShadowTruth != null ? ShadowTruth.Objective : FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
+            StageNumber != 1 && Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Move clear of its red warning." :
+            !PiecePlaced ? (StageNumber == 1 ? "Run forward. Stay ahead of the guardian." : "02 / Carry the released ember core to the socket.") :
+            !SwitchLatched ? (StageNumber == 1 ? "Cross the flame lane. Release the rescue lock." : "03 / Cross the flame lane. Operate the rescue mechanisms.") :
             !Assisted ? "04 / Help the trapped figure." : "05 / The way opens through assistance. Enter the light.";
 
         void Awake()
@@ -69,6 +70,7 @@ namespace HellSlice
             BorrowedTime = GetComponent<SliceBorrowedTimeStage>();
             Pride = GetComponent<SlicePrideStage>();
             Chase = GetComponent<SliceChaseStage>();
+            TheReturn = GetComponent<SliceReturnStage>();
             if (useLegacyConstruction)
             {
                 if (Clock == null) Clock = gameObject.AddComponent<SliceTime>();
@@ -87,7 +89,7 @@ namespace HellSlice
             CameraRig = World.CameraRig;
             World.InitializeRuntime();
             if (landing) PiecePlaced = SwitchLatched = Assisted = true;
-            Player.SetReveal(EarlierCompletedStages / 7f, true);
+            Player.SetReveal(EarlierCompletedStages / 6f, true);
             UnlockCursor();
             if (StartImmediately || InstructionsSeen) Begin();
         }
@@ -104,7 +106,8 @@ namespace HellSlice
             if (ShadowTruth != null) { ShadowTruth.Tick(this); return; }
             if (BorrowedTime != null) { BorrowedTime.Tick(this); return; }
             if (Pride != null) { Pride.Tick(this); return; }
-            if (Chase != null) { Chase.Tick(this); return; }
+            if (Chase != null && !Chase.ChaseComplete) { Chase.Tick(this); return; }
+            if (TheReturn != null) { TheReturn.Tick(this); return; }
             if (landing) return;
             if (World.RescueSwitch != null)
             {
@@ -138,10 +141,16 @@ namespace HellSlice
             if (value) UnlockCursor(); else { Cursor.lockState = CursorLockMode.Locked; Cursor.visible = false; }
         }
         public void PlacePiece() { PiecePlaced = true; Feedback.Cue(470); Notify("Crossing unlocked. Wait for the flames to cool."); }
+        public void UnlockRescueProgression()
+        {
+            if (StageNumber != 1 || Chase == null || !Chase.DoorClosed) return;
+            Player.Carrying = false;
+            PiecePlaced = true;
+        }
         public bool Assist()
         {
             if (!PiecePlaced || !SwitchLatched || Assisted) return false;
-            Assisted = true; Player.SetReveal((EarlierCompletedStages + 1) / 7f, false); Feedback.Cue(880);
+            Assisted = true; Player.SetReveal((EarlierCompletedStages + 1) / 6f, false); Feedback.Cue(880);
             Notify("You stopped to help. A part of yourself becomes visible.", 7f); return true;
         }
         public void KillPlayer()

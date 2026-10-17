@@ -9,7 +9,8 @@ Stop Play Mode before editing. In Unity's Project window, open `Assets/HellSlice
 | 3 | FeedingFlame.unity |
 | 4 | ShadowOfTruth.unity |
 | 5 | WeightOfPride.unity |
-| 6 | BorrowedTime.unity |
+| Archived | BorrowedTime.unity (disabled; not playable) |
+| 6 | TheReturn.unity |
 
 Expand `Level` in the Hierarchy. Persistent environment, lighting, player, camera, puzzles, hazards, progression, UI and systems are saved scene objects; Stage 1/3 also contain enemies. No generator is required. The scene's `useLegacyConstruction` is off and object hide flags are zero.
 
@@ -19,9 +20,11 @@ Stage 4: stones and silhouettes are under `Level/Environment/Crossing 1–3`; ea
 
 Move/resize objects using their Transforms and save with Ctrl+S. Preserve component/reference links when replacing visuals. Changes made during Play Mode are temporary.
 
-Stage 5: see `docs/modules/stage-5-weight-of-pride.md` for the collapse, helper paths, levers and gate. Its exit now targets BorrowedTime.
+Stage 5: see `docs/modules/stage-5-weight-of-pride.md` for the collapse, helper paths, levers and gate. Its exit targets TheReturn (final Stage 6).
 
-Stage 6: the hub and three branch routes are under `Level/Environment`. Captives under `Level/Puzzles` expose release range, figure, restraints, escape walkway and waypoint references. `Level/Hazards` contains the two timed jets, moving pillar with end anchors, lava and three fire fronts with approach/contact anchors. `Level/Progression` contains saved return walkways, escape waypoints and the exit. Gameplay Session's `SliceBorrowedTimeStage` exposes the 100-second deadline, 8-second grace, captives, hazards and gate. Q uses the existing world clock. See `docs/modules/stage-6-borrowed-time.md`.
+Stage 6: TheReturn contains the guardian/seals, quiet walk and hospital ending. Saved objects and references are described in `docs/modules/stage-7-story.md` (legacy document filename; playable stage number is 6). QA: `docs/qa/stage-6-the-return.md`.
+
+The archived BorrowedTime scene remains editable in the Project window but is excluded from the build and Stage 5 flow. Its design record is retained in `docs/modules/stage-6-borrowed-time.md` for reference.
 
 For all scenes visible together while editing, drag the other scene assets from Project into Hierarchy to open them additively. Each has its own scene heading. Before pressing Play, close the other scenes so exactly one gameplay scene is loaded: these levels overlap in world coordinates and each has its own player, camera and session. Edit/open one at a time for the simplest workflow.
 

@@ -1,5 +1,7 @@
 # Stage 2 — The Weight of Possession
 
+Visual integration (17 October, `d6e0592`): existing stone/ruin kit applied to islands, ledge, pedestals and partition; added edge rubble, exit masonry/frame, matching gold/blue inlays parented to the rising stones, and EndlessHellBackdrop. Original gameplay objects, transforms, colliders, inactive route groups and FeedingFlame transition remain unchanged. Stage 1's user-fixed positions were preserved byte-for-byte. Static reference checks passed; Unity rendering, clearances and performance remain manual QA.
+
 Outcome: return two valuables to restore a safe route across a short lava chamber, then reach its exit. Fictional dream about greed/responsibility; no doctrinal classification.
 
 Layout: entry island (spawn, gold cube and matching square receptacle); first return raises a short bridge to a second island. A blue sphere rests beyond one existing cycling flame strip; carry it back through the strip to its round blue receptacle. Second return raises the final bridge and opens the exit. Islands have room to wait safely. No boundary walls, extra enemies, or long return trips.

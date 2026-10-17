@@ -4,7 +4,7 @@ Updated: 16 October 2026. **A placeholder Windows build exists; latest source/UI
 
 ## Story and tone
 
-Accident → coma → fictional frightening dream chambers → accountability through corrective actions → increasingly visible human appearance → peaceful light → hospital awakening → concrete choice to change. Mood moves from fear/confusion toward responsibility/hope. Seven chapters remain planned; the current prototype implements one connected demonstration chamber. Do not imply unseen chapters or the ending are playable.
+Accident → coma → fictional frightening dream chambers → accountability through corrective actions → increasingly visible human appearance → peaceful light → hospital awakening → concrete choice to change. Mood moves from fear/confusion toward responsibility/hope. The six-stage sequence is integrated: Stage 5 flows directly to The Return (final Stage 6), followed by the hospital waking action. Final-stage gameplay, transitions and ending presentation await manual QA; record verified footage before making trailer claims.
 
 These dream chapters are not authoritative Islamic depictions/classifications of Hell. No invented religious text or claims of guaranteed forgiveness. Enemies are fictional dream manifestations. Assistance/restoration, not killing, unlocks narrative progress.
 
@@ -18,7 +18,7 @@ These dream chapters are not authoritative Islamic depictions/classifications of
 | Combat and interaction | One short fight releases piece; carry/place and assistance follow | Implemented prototype; updated build verification pending |
 | Accountability | Enemy defeat alone fails to open gate; helping figure opens route | Implemented prototype; updated build verification pending |
 | Transformation/transition | One visible material change, gate opens, next-stage landing | Implemented prototype; updated build verification pending |
-| Seven stages / hospital ending | No footage available; optional planned-story wording only | Unimplemented |
+| Six stages / hospital ending | Guardian/seals, final reveal, light, hospital and waking action | Integrated; manual QA and footage pending |
 
 ## Requirements supplied by user
 

@@ -89,7 +89,7 @@ namespace HellSlice
             EvidenceReturned = true;
             if (ExitGate != null) ExitGate.SetActive(false);
             session.Feedback.Cue(880);
-            session.Player.SetReveal((session.EarlierCompletedStages + 1) / 7f, false);
+                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 6f, false);
         }
 
         static bool Near(SlicePlayer player, Vector3 target, float range)

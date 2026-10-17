@@ -90,7 +90,7 @@ namespace HellSlice
                 CentralFire.SetActive(false);
                 ExitGate.SetActive(false);
                 if (ExitRoute != null) ExitRoute.SetActive(true);
-                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 7f, false);
+                session.Player.SetReveal((session.EarlierCompletedStages + 1) / 6f, false);
             }
             if (complete && session.World.ExitContains(session.Player.transform.position)) session.CompleteStage();
         }

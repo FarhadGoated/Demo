@@ -42,7 +42,7 @@ namespace HellSlice
                     {
                         RouteComplete = true;
                         if (ExitGate != null) ExitGate.SetActive(false);
-                        player.SetReveal((session.EarlierCompletedStages + 1) / 7f, false);
+                        player.SetReveal((session.EarlierCompletedStages + 1) / 6f, false);
                     }
                 }
                 return prompt;

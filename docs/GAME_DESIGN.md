@@ -1,6 +1,6 @@
 # Game design
 
-Status: seven-stage story retained; combined first playable implemented but current revision awaits manual QA. PROJECT_STATE.md records actual completion.
+Status: six playable stages. The Return, formerly chapter 7, is integrated as final Stage 6, including the hospital/waking-action ending. BorrowedTime is archived and excluded from the playable path. Manual final-stage QA is pending; PROJECT_STATE.md records current integration state.
 
 ## Vision and boundaries
 
@@ -26,11 +26,10 @@ The chambers are fictional dream chapters, not an authoritative depiction or cla
 | 3. The Feeding Flame | Position around enemy/fire | Time the mechanism; slow time only if unlocked by agreement | Controlled route through flames |
 | 4. The Shadow of Truth | Position and interact with environmental mechanisms | Gather evidence and operate distant mechanism | Reconstruct memory and acknowledge responsibility |
 | 5. The Lower Path | Attractive upper route | Upper route fails; seek cooperation below | Lower cooperative path succeeds |
-| 6. Borrowed Time | Positioning and environmental mechanisms | Timed hazards while helping figure cross | Another figure reaches safety |
-| 7. The Return | Confront the same guardian after the preceding stages | Final corrective action still needed after the central encounter | Transformation, light, hospital and waking choice |
+| 6. The Return | Confront the same guardian after the preceding stages | Break three seals and activate mechanisms | Final transformation, light, hospital and waking choice |
 
 ## First milestone proposal
 
-Stage 1 now introduces the recurring guardian through escape rather than defeating it. The earlier combined combat/flame/rescue demonstration is superseded for this scene. Stage 7's return is story planning only; its existing ending notes are retained (see `modules/stage-7-story.md`). Death reloads the current stage while keeping earlier completions within the run. No checkpoints/projection. See `modules/stage-1-chase.md` for the current first-stage spec.
+Stage 1 introduces the recurring guardian through a chase/button escape, then continues through the existing flames and rescue puzzle without core carrying. The guardian returns in final Stage 6, integrated from Claude's former chapter 7 (see `modules/stage-7-story.md`). Borrowed Time is archived. Death reloads the current stage while keeping earlier completions within the run. No checkpoints/projection. See `modules/stage-1-chase.md` for the current first-stage spec.
 
 Presentation style: economical stylized ruins, ash and fire against cool silhouettes; clear hazard boundaries and warm assistance/progression cues. Avoid relying on darkness, bloom or smoke that hides controls or routes. Test hardware is a 12th-gen Core i7 laptop with 32 GB RAM and Intel Xe graphics. Provisional target is 60 FPS at 1280x720 with scalable effects; start capture at stable 30 FPS. Limit shadow-casting lights, transparent particles and post-processing, then measure with recording enabled. No performance results exist yet.

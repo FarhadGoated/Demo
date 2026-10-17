@@ -6,6 +6,8 @@ Scene reload restores initial player/enemy/puzzle/core/hazard/temporary-ability 
 
 All gameplay remains authored in saved scenes. `StageNumber` identifies the stage for earlier-completion appearance and stage-scoped ability availability. Preserve manual layout/Inspector changes and prefab links.
 
+The playable game has six stages. Stage 5 targets TheReturn (StageNumber 6, formerly chapter 7), included in build settings and the build command. The final scene has no next destination; only the hospital waking action commits Stage 6 completion. BorrowedTime is retained as an archived scene but disabled in build settings and removed from the build command; no shared runtime code or assets were deleted.
+
 Stage 1 now targets WeightOfPossession; original NextLanding is retained. `CompleteStage` guards duplicate completion and uses the run-local record. Stage 2's final return previews transformation; its exit commits completion. An empty/unavailable next scene does not load: Stage 2 displays essential completion feedback while retaining movement. Death still reloads the current scene, and repeat completion cannot stack the reveal. Build settings/existing build command include Stage 2.
 
 Acceptance: repeated death triggers queue one load; current scene remains current; state resets fully; earlier completions survive; early replay respects its ability configuration. Runtime/editor compilation and serialized-reference checks pass; manual QA pending.
