@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 namespace HellSlice.Polish
@@ -7,10 +8,11 @@ namespace HellSlice.Polish
     /// <summary>
     /// Review helper. Inactive unless the player is launched with: -polish-capture "C:\path\to\folder"
     /// It starts the stage, photographs fixed viewpoints for before/after comparison, then quits.
+    /// Add -polish-scene <SceneName> to capture another stage (default: the first scene).
     /// </summary>
     public sealed class PolishCapture : MonoBehaviour
     {
-        string folder;
+        string folder, scene;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot()
@@ -20,7 +22,8 @@ namespace HellSlice.Polish
                 if (args[i] == "-polish-capture" && FindFirstObjectByType<PolishCapture>() == null)
                 {
                     var go = new GameObject("Polish capture"); DontDestroyOnLoad(go);
-                    go.AddComponent<PolishCapture>().folder = args[i + 1];
+                    var capture = go.AddComponent<PolishCapture>(); capture.folder = args[i + 1];
+                    for (int j = 0; j < args.Length - 1; j++) if (args[j] == "-polish-scene") capture.scene = args[j + 1];
                 }
         }
 
@@ -28,6 +31,7 @@ namespace HellSlice.Polish
         {
             Directory.CreateDirectory(folder);
             StartCoroutine(HoldEnemies());
+            if (!string.IsNullOrEmpty(scene)) yield return SceneManager.LoadSceneAsync(scene);
             yield return new WaitForSecondsRealtime(1.5f);
             var s = SliceSession.Current;
             if (s == null) { Application.Quit(); yield break; }

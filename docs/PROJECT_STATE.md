@@ -6,6 +6,20 @@ Updated 17 October 2026. Game/trailer deadline: Sunday 18 October, 9:30 AM Pakis
 
 Do not launch Unity, enter Play Mode, capture screenshots, repeatedly inspect UI or run automated gameplay tests unless the user explicitly requests it. After code changes, perform at most one targeted compile check without launching Unity, if available; inspect relevant changed code only. Do not repeat successful checks without a new reason. Fix failures narrowly. Keep documentation/reports brief, state unverified behavior, provide expected manual QA results and stop for user feedback.
 
+## Stage 2 environment: same kit (17 October, branch feature/stage1-environment-assets)
+
+Visual only, `WeightOfPossession.unity` only.
+- The islands and the gold ledge use HellStone-Floor, with crumbling rock and masonry chunks around every edge, rock mass beneath, and snapped column stumps on two corners.
+- The broken partition is now a ruin wall, and the pedestals use HellStone-Wall.
+- The four rising route stones use the floor material plus a glowing gold or blue inlay in their original cue material. The inlay is a child of the stone, so it appears and rises with it.
+- The exit gate gets masonry parented under it, so it still opens, plus a column-and-arch frame.
+- Ten spires and sunken arches surround the stage, plus the shared `EndlessHellBackdrop` prefab (reused, not regenerated). The camera far clip is 1500.
+- A record-level comparison against the previous scene shows only material references, hidden box renderers, added children and the far clip changed. Colliders, transforms and gameplay values are unchanged.
+- `PolishCapture` accepts `-polish-scene <SceneName>`.
+
+Passed: Windows build and the automated capture (`screenshots/stage2-before`, `stage2-after`).
+Not verified: manual play, edge rubble near island seams (visual only, no collider), and FPS on Intel Xe.
+
 ## Stage 1 environment: ruins, textures, endless backdrop (17 October, branch feature/stage1-environment-assets)
 
 Visual only, Stage 1 (`FirstPlayable.unity`) only.
