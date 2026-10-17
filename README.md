@@ -4,6 +4,8 @@ Third-person narrative puzzle-adventure for NASCON. Seven fictional dream chambe
 
 **Status: Current Stage 1 accepted by the developer after manual play and final button placement. Windows build passes with 0 errors / 0 warnings; standalone QA pending. Seven-chapter path unfinished. Gameplay completion precedes polish.**
 
+Stage 2 implementation is now available in `Assets/HellSlice/Scenes/WeightOfPossession.unity`; Stage 1 exits there. Open it and press Play for [Stage 2 manual QA](docs/qa/stage-2-possession.md). Compilation/file checks passed, but Unity import and gameplay are unverified. The existing Windows QA ZIP predates Stage 2; no new build has been made.
+
 - Unity: **6000.3.13f1** (keep this version).
 - Rendering: Universal Render Pipeline **17.3.0**.
 - Input: Input System **1.19.0**, new input backend enabled.
@@ -16,7 +18,7 @@ Third-person narrative puzzle-adventure for NASCON. Seven fictional dream chambe
 1. Add this folder in Unity Hub and open using Unity 6000.3.13f1.
 2. Allow the existing packages to resolve; do not upgrade them for this prototype.
 3. Open `Assets/HellSlice/Scenes/FirstPlayable.unity` and press Play. The saved scene contains editable gameplay objects; no generator is needed.
-4. WASD moves, mouse looks, Left Shift runs, left mouse attacks, Space dodges, E interacts, and Esc pauses/resumes. Q slow time is locked pending a later-stage unlock decision. Projection/swapping is removed.
+4. WASD moves, mouse looks, left mouse attacks, Space jumps while grounded, E interacts, and Esc pauses/resumes. Shift sprint is removed. Q slow time is locked pending a later-stage unlock decision. Projection/swapping is removed.
 5. Follow [Windows QA](docs/qa/stage-1-windows.md). Death restarts the current stage; earlier completion survives within the current run only.
 
 Save the scene, then choose **Tools > A Day Through Hell > Build Windows** outside Play Mode. Output: `Builds/Windows/A day through Hell.exe` plus required companion files. Share the complete QA ZIP, not the executable alone. Includes FirstPlayable and NextLanding; NextLanding is a transition destination, not a finished second chamber. Do not regenerate authored scenes.
@@ -34,3 +36,7 @@ Source repository: [FarhadGoated/Demo](https://github.com/FarhadGoated/Demo), se
 
 
 
+
+## Third-party model credit
+
+This work is based on [Cyclops Rig](https://sketchfab.com/3d-models/cyclops-rig-e5cc86878c314f5bae6d7268bb7541d9) by [DM-913](https://sketchfab.com/SuperKapoo913), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Converted to FBX by the teammate; rig helper geometry removed, textures configured for Unity. Original credit is preserved beside the asset.

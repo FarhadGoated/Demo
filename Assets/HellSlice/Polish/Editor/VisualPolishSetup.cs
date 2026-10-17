@@ -18,7 +18,6 @@ namespace HellSlice.Polish.EditorTools
         const string Root = "Assets/HellSlice/Polish";
         const string Mat = Root + "/Materials";
         const string PlayerModel = Root + "/Characters/BusinessMan/BusinessMan.fbx";
-        const string EnemyFolder = Root + "/Characters/Cyclops";
         const string AddedRootName = "Visual Polish (added)";
 
         [MenuItem("Tools/A Day Through Hell/Apply Visual Polish")]
@@ -29,16 +28,22 @@ namespace HellSlice.Polish.EditorTools
             EditorSceneManager.OpenScene(SliceBuild.First);
         }
 
+        /// <summary>Regenerates the shared prefabs/profile from code (only needed after editing this tool).</summary>
+        [MenuItem("Tools/A Day Through Hell/Rebuild Visual Polish Assets")]
+        public static void RebuildAssetsMenu() { rebuild = true; try { ApplyAll(); } finally { rebuild = false; } }
+        static bool rebuild;
+
         /// <summary>Batch-mode entry: -executeMethod HellSlice.Polish.EditorTools.VisualPolishSetup.ApplyAll</summary>
         public static void ApplyAll()
         {
             var mats = EnsureMaterials();
             var profile = EnsureProfile();
             var prefabs = EnsurePrefabs(mats, profile);
-            Apply(SliceBuild.First, mats, prefabs);
-            Apply(SliceBuild.Landing, mats, prefabs);
+            // Every stage shares the hell sky/background (approved for shared use across levels).
+            foreach (var scene in new[] { SliceBuild.First, SliceBuild.Possession, SliceBuild.FeedingFlame, SliceBuild.Landing })
+                Apply(scene, mats, prefabs);
             AssetDatabase.SaveAssets();
-            Debug.Log("[VisualPolish] Applied to FirstPlayable and NextLanding.");
+            Debug.Log("[VisualPolish] Applied to FirstPlayable, WeightOfPossession, FeedingFlame and NextLanding.");
         }
 
         /// <summary>Batch-mode entry: apply then build Windows player.</summary>
@@ -88,6 +93,7 @@ namespace HellSlice.Polish.EditorTools
             // Re-use the asset (stable GUID across runs and machines); only its components are rebuilt.
             string path = Root + "/HellVolumeProfile.asset";
             var p = AssetDatabase.LoadAssetAtPath<VolumeProfile>(path);
+            if (p != null && !rebuild) return p; // existing asset is the source of truth; no churn on re-apply
             if (p == null) { p = ScriptableObject.CreateInstance<VolumeProfile>(); AssetDatabase.CreateAsset(p, path); }
             foreach (var old in p.components.ToArray()) { AssetDatabase.RemoveObjectFromAsset(old); Object.DestroyImmediate(old, true); }
             p.components.Clear();
@@ -111,6 +117,9 @@ namespace HellSlice.Polish.EditorTools
         static Prefabs EnsurePrefabs(Mats m, VolumeProfile profile)
         {
             Directory.CreateDirectory(PrefabDir);
+            GameObject Load(string n) => AssetDatabase.LoadAssetAtPath<GameObject>($"{PrefabDir}/{n}.prefab");
+            if (!rebuild && Load("FlameEruption") != null && Load("HellAtmosphere") != null && Load("HellPostProcessing") != null)
+                return new Prefabs { Flame = Load("FlameEruption"), Atmosphere = Load("HellAtmosphere"), Post = Load("HellPostProcessing") };
             var flame = new GameObject("FlameEruption");
             // Five nozzle jets across the lane: a flamethrower / eruption column, not a campfire.
             for (int j = -2; j <= 2; j++)
@@ -228,26 +237,11 @@ namespace HellSlice.Polish.EditorTools
                 skin.Role = PolishSkin.Kind.Player; skin.Model = playerModel; skin.RevealTemplate = m.Reveal; skin.TargetHeight = 1.8f;
                 EditorUtility.SetDirty(p.gameObject);
             }
-            var enemyModel = FindEnemyModel();
-            foreach (var e in Object.FindObjectsByType<SliceEnemy>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-            {
-                var skin = e.gameObject.AddComponent<PolishSkin>();
-                skin.Role = PolishSkin.Kind.Enemy; skin.Model = enemyModel; skin.RevealTemplate = m.Reveal;
-                skin.TargetHeight = 2.4f; skin.EnemyReveal = 1; skin.EnemyRim = new Color(1f, .25f, .08f);
-                skin.OverrideBaseMap = AssetDatabase.LoadAssetAtPath<Texture>(EnemyFolder + "/Cyclops.fbm/Cyclops_Material.001_baseColor.png");
-                EditorUtility.SetDirty(e.gameObject);
-            }
+            // Enemies are left alone: the Stage 1 Cyclops is authored by the developer through SliceEnemy.Appearance
+            // (Cyclops-Visual.prefab), and other stages keep their own guardians.
 
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);
-        }
-
-        static GameObject FindEnemyModel()
-        {
-            if (!AssetDatabase.IsValidFolder(EnemyFolder)) return null;
-            foreach (var guid in AssetDatabase.FindAssets("t:Model", new[] { EnemyFolder }))
-                return AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(guid));
-            return null;
         }
 
         static Bounds? Grow(Bounds? b, Bounds add) { if (b == null) return add; var v = b.Value; v.Encapsulate(add); return v; }

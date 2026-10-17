@@ -20,3 +20,7 @@ Use placeholders immediately; asset sourcing must not delay the playable slice. 
 3. For Meshy/AI models inspect geometry, disconnected parts, normals, UVs, material count, texture paths, import scale/orientation, rig/avatar validity, skin weights, animation compatibility and measured performance. A generated mesh is not automatically animation-ready.
 4. Test in URP with the actual player/enemy pipeline before replacing placeholders. Record polygon/material/texture statistics and laptop profiling results, rather than claiming a universal polygon limit.
 5. Update ASSET_REGISTER before integration/publication. Free, paid, and AI-generated are not license classifications. A right to ship a compiled game may not include raw source redistribution.
+
+## Stage 2 asset handoff (gameplay first)
+
+Reuse the shared skybox, character and ruin materials across stages. Stage 1 remains editable for later replacement. Stage 2 needs only: (1) two distinct valuables with matching receptacle shapes/colours, (2) short bridge and ruined floor/partition meshes, (3) shared lava/flame visuals later. Keep valuable gameplay roots and replace their Visuals children. No projection/range/body-marker art is needed; those older requests are superseded. Audio/decorative UI remain deferred.

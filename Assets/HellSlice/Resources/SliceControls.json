@@ -24,15 +24,6 @@
           "initialStateCheck": true
         },
         {
-          "name": "Run",
-          "type": "Button",
-          "id": "a01a1443-0000-4000-8000-000000000017",
-          "expectedControlType": "Button",
-          "processors": "",
-          "interactions": "",
-          "initialStateCheck": false
-        },
-        {
           "name": "Attack",
           "type": "Button",
           "id": "a01a1443-0000-4000-8000-000000000018",
@@ -72,6 +63,15 @@
           "name": "Pause",
           "type": "Button",
           "id": "a01a1443-0000-4000-8000-000000000023",
+          "expectedControlType": "Button",
+          "processors": "",
+          "interactions": "",
+          "initialStateCheck": false
+        },
+        {
+          "name": "Jump",
+          "type": "Button",
+          "id": "deeb5a40-ac22-4c72-b6a4-e980c8a6337c",
           "expectedControlType": "Button",
           "processors": "",
           "interactions": "",
@@ -147,17 +147,6 @@
         },
         {
           "name": "",
-          "id": "a01a1443-0000-4000-8000-000000000007",
-          "path": "<Keyboard>/leftShift",
-          "interactions": "",
-          "processors": "",
-          "groups": "KeyboardMouse",
-          "action": "Run",
-          "isComposite": false,
-          "isPartOfComposite": false
-        },
-        {
-          "name": "",
           "id": "a01a1443-0000-4000-8000-000000000008",
           "path": "<Mouse>/leftButton",
           "interactions": "",
@@ -174,7 +163,7 @@
           "interactions": "",
           "processors": "",
           "groups": "KeyboardMouse",
-          "action": "Dodge",
+          "action": "Jump",
           "isComposite": false,
           "isPartOfComposite": false
         },
@@ -208,6 +197,28 @@
           "processors": "",
           "groups": "KeyboardMouse",
           "action": "Pause",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "fbaf34bd-2501-4807-9b02-9690d34dbdb8",
+          "path": "<Keyboard>/leftShift",
+          "interactions": "",
+          "processors": "",
+          "groups": "KeyboardMouse",
+          "action": "Dodge",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "9db09a62-5f4a-439e-8c40-63d9a5a02589",
+          "path": "<Keyboard>/rightShift",
+          "interactions": "",
+          "processors": "",
+          "groups": "KeyboardMouse",
+          "action": "Dodge",
           "isComposite": false,
           "isPartOfComposite": false
         }
