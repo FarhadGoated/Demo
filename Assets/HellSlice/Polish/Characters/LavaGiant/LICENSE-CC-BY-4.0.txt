@@ -1,0 +1,16 @@
+Model Information:
+* title:	lava monster
+* source:	https://sketchfab.com/3d-models/lava-monster-2e2a1eac6f834857af5347a0662b075d
+* author:	Satwik.Bandi (https://sketchfab.com/Satwik.Bandi)
+* published:	12 March 2019 (Sketchfab); downloaded 17 October 2026
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+Credit:
+This work is based on "lava monster" (https://sketchfab.com/3d-models/lava-monster-2e2a1eac6f834857af5347a0662b075d) by Satwik.Bandi (https://sketchfab.com/Satwik.Bandi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+Changes: source file "Breathing Idle.fbx" renamed to LavaGiant.fbx; 4096px textures downscaled to 1024px
+(BaseColor, Normal, Emissive kept; Height/Metalness/Roughness not used); Unity material, idle controller and
+visual prefab (with particle flames) added for this project.

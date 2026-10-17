@@ -17,7 +17,8 @@ namespace HellSlice.Polish.EditorTools
         {
             if (!assetPath.StartsWith("Assets/HellSlice/Polish/Characters/")) return;
             var m = (ModelImporter)assetImporter;
-            m.importAnimation = false; // models only for now; animation is a separate decision
+            // Models only, except the Lava Giant: its bind pose is a T-pose, so its supplied idle loop is kept.
+            m.importAnimation = assetPath.Contains("/LavaGiant/");
             m.animationType = ModelImporterAnimationType.Generic;
         }
     }
