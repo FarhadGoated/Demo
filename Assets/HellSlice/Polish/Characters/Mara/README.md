@@ -17,8 +17,8 @@ The asset uses the **Standard Unity Asset Store EULA**. That licence lets us use
 ## Intended use (from the docs and the story notes)
 
 - Mara is the trapped figure and the coworker the protagonist blamed (Stage 4). Scale her to a normal adult height of about 1.8 m.
-- Her cool blue-grey transparent materials give her a shadowy, ethereal dream-memory look.
+- Her cool blue-grey dithered soul materials give her a shadowy, ethereal dream-memory look.
 - She's a modest, normally dressed woman. Use her as a visual only and keep the gameplay colliders on the existing figure objects, the same pattern as `SliceEnemy.Appearance` for the giant and the Cyclops.
 - Locally integrated in Stage 1 beneath `Level/Puzzles/Trapped figure`, using `Assets/civilian_girl/Prefabs/civilian_girl.prefab` (package metadata product ID 283633, Female Civilian).
-- Six project-owned `Assets/HellSlice/Materials/Mara-Memory-*` materials preserve the imported textures with URP transparency. `SliceMemoryFigure` controls bound opacity (.65), released opacity (0) and fade duration (2 seconds); the existing help action triggers the fade. Respawn restores it.
+- Six project-owned `Assets/HellSlice/Materials/Mara-Memory-*` materials preserve the imported colour textures with the URP Memory Soul shader. Its shared screen-space cutout mask writes depth so face/eye/teeth layers do not blend through each other; hair and eyelashes retain texture cutouts. `SliceMemoryFigure` controls bound opacity (.65), released opacity (0) and fade duration (2 seconds); the existing help action triggers the fade. Respawn restores it.
 - The imported `Assets/civilian_girl` package and its folder meta are git-ignored; teammates must import the same package locally. The source prefab/materials are not modified.
