@@ -157,7 +157,8 @@ namespace HellSlice
         {
             if (!Running || Transitioning) return;
             Dead = true;
-            Restart();
+            // The death screen offers the restart; automated tests (and a missing screen) reload at once.
+            if (SliceSmokeDriver.IsRunning || !Polish.PolishDeathScreen.Show(this)) Restart();
         }
         public void Restart()
         {

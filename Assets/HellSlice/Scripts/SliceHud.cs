@@ -47,7 +47,7 @@ namespace HellSlice
         }
         void OnGUI()
         {
-            var s = SliceSession.Current; if (s == null || s.Player == null || Polish.PolishSettings.IsOpen) return;
+            var s = SliceSession.Current; if (s == null || s.Player == null || Polish.PolishSettings.IsOpen || Polish.PolishDeathScreen.IsOpen) return;
             if (title == null) Init();
             GUI.matrix = Matrix4x4.Scale(new Vector3(Screen.width / 1280f, Screen.height / 720f, 1));
             if (MinimalUI)
