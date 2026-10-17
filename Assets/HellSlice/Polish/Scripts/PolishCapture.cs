@@ -59,18 +59,25 @@ namespace HellSlice.Polish
             while (wait < 8 && !AnyBurning()) { wait += Time.unscaledDeltaTime; yield return null; }
             yield return new WaitForSecondsRealtime(.25f);
             yield return View(cam, new Vector3(1.9f, 1.2f, 15.6f), new Vector3(0, 4.2f, 20.5f), "7-eruption-close");
-            // Stage 1 cage, when present: closed close-up, wide with its support, the cell lever, then the pull and door lift.
+            // Stage 1 cage, when present: closed close-up, wide with its support, the levers, then the pulls and the door lift.
             var cage = FindFirstObjectByType<PolishCageRescue>();
             if (cage != null)
             {
                 Vector3 c = cage.transform.position;
                 yield return View(cam, c + new Vector3(1.6f, 1.7f, -4.2f), c + new Vector3(0, 1.2f, 0), "9a-cage-closed");
                 yield return View(cam, c + new Vector3(5.5f, 4.2f, -7.5f), c + new Vector3(-.8f, 3.2f, 0), "9b-cage-wide");
-                Vector3 lever = cage.LeverHandle != null ? cage.LeverHandle.position : c;
-                yield return View(cam, lever + new Vector3(-2.6f, 1.2f, -1.4f), lever + new Vector3(0, -.2f, 0), "9d-lever");
+                var levers = FindObjectsByType<PolishSwitchLever>(FindObjectsSortMode.None);
+                Vector3 Of(string part) { foreach (var l in levers) if (l.Switch != null && l.Switch.name.Contains(part) && l.Handle != null) return l.Handle.position; return c; }
+                Vector3 lockLever = Of("Rescue Lock"), routeLever = Of("Open Route"), doorLever = Of("Guardian");
+                yield return View(cam, lockLever + new Vector3(-2.4f, 1.1f, -1.2f), lockLever + new Vector3(0, -.3f, 0), "9d-lock-lever");
+                yield return View(cam, routeLever + new Vector3(-2.2f, 1.1f, 1.3f), routeLever + new Vector3(0, -.3f, 0), "9h-route-lever");
+                yield return View(cam, doorLever + new Vector3(-1.2f, .3f, -2.4f), doorLever, "9f-door-lever");
+                foreach (var l in levers) l.Pull();
                 cage.PreviewRelease();
-                yield return new WaitForSecondsRealtime(2f);
-                yield return View(cam, lever + new Vector3(-2.6f, 1.2f, -1.4f), lever + new Vector3(0, -.2f, 0), "9e-lever-pulled");
+                yield return new WaitForSecondsRealtime(2.2f);
+                yield return View(cam, lockLever + new Vector3(-2.4f, 1.1f, -1.2f), lockLever + new Vector3(0, -.3f, 0), "9e-lock-lever-pulled");
+                yield return View(cam, routeLever + new Vector3(-2.2f, 1.1f, 1.3f), routeLever + new Vector3(0, -.3f, 0), "9i-route-lever-pulled");
+                yield return View(cam, doorLever + new Vector3(-1.2f, .3f, -2.4f), doorLever, "9g-door-lever-pulled");
                 yield return View(cam, c + new Vector3(1.6f, 1.7f, -4.2f), c + new Vector3(0, 1.2f, 0), "9c-cage-open");
             }
             // Settings screen over the paused game.
