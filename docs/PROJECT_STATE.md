@@ -6,6 +6,24 @@ Updated 17 October 2026. Game/trailer deadline: Sunday 18 October, 9:30 AM Pakis
 
 Do not launch Unity, enter Play Mode, capture screenshots, repeatedly inspect UI or run automated gameplay tests unless the user explicitly requests it. After code changes, perform at most one targeted compile check without launching Unity, if available; inspect relevant changed code only. Do not repeat successful checks without a new reason. Fix failures narrowly. Keep documentation/reports brief, state unverified behavior, provide expected manual QA results and stop for user feedback.
 
+## Stage 1 environment: ruins, textures, endless backdrop (17 October, branch feature/stage1-environment-assets)
+
+Visual only, Stage 1 (`FirstPlayable.unity`) only.
+- Shared world-space stone: the `HellSlice/Triplanar Stone` shader and the HellStone-Floor/Wall/Rock materials (A10, Poly Haven CC0). These are on the floor, walls, buttresses, cell and spires.
+- Ruins (A11, Quaternius CC0) are under `Level/Environment/Stage 1 ruins (added)`:
+  - broken masonry walls, broken and snapped columns, a cracked arch at the old exit
+  - rubble and fallen debris along the walkway edges
+  - rock spires and sunken arches in place of the floating "Distant broken spire" boxes
+  - a frame around the raised drop slab
+- The two gates and the drop slab get masonry parented under them, so they open and fall as before.
+- `Polish/Prefabs/EndlessHellBackdrop.prefab`: a 2 km lava sea plus rings of peaks, so the lava never visibly ends. Camera far clip raised to 1500. The prefab is reusable in every stage.
+- The replaced boxes only have their MeshRenderer disabled. Colliders, transforms, gameplay objects and other scenes are unchanged; a record-level comparison against the previous scene confirms this.
+- The `PolishCapture` review helper now holds enemies still every frame, so the Stage 1 guardian no longer resets the stage mid-capture.
+
+Passed: batch import, 0 compile errors, Windows build, automated review capture (`D:\Inferno-Hackathon\screenshots\stage1-ruins-v4`).
+Not verified: manual play feel, collision versus visuals (ruin tops are lower than the unchanged wall colliders in places), and FPS on the Intel Xe laptop (about 430 extra static pieces, shadows off for rubble and backdrop).
+The one-off authoring script is in `LocalOnly/OneOff/Stage1RuinsOnce.cs` (not committed).
+
 ## Current work — Stage 6 ready for manual QA (17 October)
 
 **Latest Stage 1 opening revision:** manual forward chase starts immediately with 1.5s grace; player starts 4m ahead of the guardian, facing the unchanged core route. Guardian is invulnerable and capture causes full restart. Existing carry/place/gate behavior retained. After placement and full-body passage clearance, an editable wall seals and visibly drops behind the player, stops the guardian, then continues the existing Stage 2 completion flow. Scene reload resets wall and all chase state. All other scenes, including Stage 3's saved edits, remain byte-identical. Stage 7 story notes updated only. Targeted code/scene inspection only this revision; no compile, Unity launch or gameplay tests. Manual fairness, capture, clearance, wall/reset and transition remain unverified. Backup: `LocalOnly/Stage1Opening`. Await user QA; earlier pickup-trigger/wind-up descriptions below are superseded.

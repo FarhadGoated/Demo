@@ -27,16 +27,18 @@ namespace HellSlice.Polish
         IEnumerator Start()
         {
             Directory.CreateDirectory(folder);
+            StartCoroutine(HoldEnemies());
             yield return new WaitForSecondsRealtime(1.5f);
             var s = SliceSession.Current;
             if (s == null) { Application.Quit(); yield break; }
             s.Begin();
-            if (s.Enemy != null) s.Enemy.enabled = false; // hold the enemy still so the stage is not reset mid-capture
             yield return new WaitForSecondsRealtime(2.5f);
             yield return Shot("1-gameplay-view");
 
-            var rig = s.CameraRig; rig.enabled = false;
-            var cam = rig.transform;
+            // Look the camera up directly: Stage 1's session reference can be empty when the capture runs.
+            var rig = s.CameraRig != null ? s.CameraRig : FindFirstObjectByType<SliceCamera>();
+            if (rig != null) rig.enabled = false;
+            var cam = rig != null ? rig.transform : Camera.main.transform;
             yield return View(cam, new Vector3(1.4f, 1.55f, 2.3f), new Vector3(0, 1.0f, 0), "2-protagonist");
             yield return View(cam, new Vector3(2.2f, 2.0f, 4.6f), new Vector3(0, 1.3f, 8), "3-enemy");
             yield return View(cam, new Vector3(-6, 7.5f, -4.5f), new Vector3(0, 0, 20), "4-wide-vista");
@@ -54,7 +56,7 @@ namespace HellSlice.Polish
             yield return new WaitForSecondsRealtime(.25f);
             yield return View(cam, new Vector3(1.9f, 1.2f, 15.6f), new Vector3(0, 4.2f, 20.5f), "7-eruption-close");
             // Settings screen over the paused game.
-            rig.enabled = true;
+            if (rig != null) rig.enabled = true;
             s.SetPaused(true);
             yield return new WaitForSecondsRealtime(.6f);
             yield return Shot("8a-paused-with-settings-button");
@@ -62,6 +64,16 @@ namespace HellSlice.Polish
             yield return new WaitForSecondsRealtime(.8f);
             yield return Shot("8-settings");
             Application.Quit();
+        }
+
+        // Every frame, from the first one: the Stage 1 guardian would otherwise catch the standing player and reload the stage.
+        static IEnumerator HoldEnemies()
+        {
+            while (true)
+            {
+                foreach (var e in FindObjectsByType<SliceEnemy>(FindObjectsSortMode.None)) { e.StopChase(); e.enabled = false; }
+                yield return null;
+            }
         }
 
         static bool AnyBurning()
