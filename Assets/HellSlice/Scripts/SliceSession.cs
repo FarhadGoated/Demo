@@ -29,6 +29,7 @@ namespace HellSlice
         public SliceFeedback Feedback { get; private set; }
         public SlicePossessionStage Possession { get; private set; }
         public SliceFeedingFlameStage FeedingFlame { get; private set; }
+        public SliceShadowTruthStage ShadowTruth { get; private set; }
         public bool StageCompleted { get; private set; }
         [field: SerializeField] public SliceEnemy Enemy { get; set; }
         public bool Started { get; private set; }
@@ -42,7 +43,7 @@ namespace HellSlice
         public bool GateOpen => PiecePlaced && SwitchLatched && Assisted;
         public string Message { get; private set; }
         float messageTime;
-        public string Objective => FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
+        public string Objective => ShadowTruth != null ? ShadowTruth.Objective : FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
             Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Move clear of its red warning." :
             !PiecePlaced ? "02 / Carry the released ember core to the socket." :
             !SwitchLatched ? "03 / Cross the flame lane. Operate the rescue mechanisms." :
@@ -61,6 +62,7 @@ namespace HellSlice
             Interaction = GetComponent<SliceInteraction>();
             Possession = GetComponent<SlicePossessionStage>();
             FeedingFlame = GetComponent<SliceFeedingFlameStage>();
+            ShadowTruth = GetComponent<SliceShadowTruthStage>();
             if (useLegacyConstruction)
             {
                 if (Clock == null) Clock = gameObject.AddComponent<SliceTime>();
@@ -93,6 +95,7 @@ namespace HellSlice
             if (Input.Slow && SlowTimeAvailable && Clock.Activate()) { Notify("TIME BENDS / Move while the world hesitates."); Feedback.Cue(300); }
             if (Possession != null) { Possession.Tick(this); return; }
             if (FeedingFlame != null) { FeedingFlame.Tick(this); return; }
+            if (ShadowTruth != null) { ShadowTruth.Tick(this); return; }
             if (landing) return;
             if (World.RescueSwitch != null)
             {

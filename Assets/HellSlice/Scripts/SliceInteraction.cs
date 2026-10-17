@@ -17,6 +17,7 @@ namespace HellSlice
             if (s == null || !s.Running) return;
             if (s.Possession != null) { Prompt = s.Possession.HandleInteraction(s); return; }
             if (s.FeedingFlame != null) { Prompt = s.FeedingFlame.HandleInteraction(s); return; }
+            if (s.ShadowTruth != null) { Prompt = s.ShadowTruth.HandleInteraction(s); return; }
             if (s.landing) return;
             var w = s.World; var p = s.Player;
             if (p.Carrying)

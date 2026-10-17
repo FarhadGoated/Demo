@@ -56,10 +56,11 @@ older sections), then the module doc for the area you touch (`docs/modules/*.md`
 | 1 | The Unanswered Call | `FirstPlayable.unity` | built-in session logic (enemy, core socket, switches, assist) | 0 (locked) |
 | 2 | The Weight of Possession | `WeightOfPossession.unity` | `SlicePossessionStage` (+ `SliceValuable`s) | 0 (locked) |
 | 3 | The Feeding Flame | `FeedingFlame.unity` | `SliceFeedingFlameStage` (four pillars, fireball entity) | 3 |
+| 4 | The Shadow of Truth | `ShadowOfTruth.unity` | `SliceShadowTruthStage` (+ three `SliceTruthBrazier`s, receipt `SliceValuable`) | 3 |
 | — | legacy landing | `NextLanding.unity` | `landing = 1`; retained, no longer a destination | 0 |
 
 Chain: Stage N's `SliceWorld.NextScene` names Stage N+1. An empty or unbuildable `NextScene`
-shows a completion objective instead of loading. Chambers 4 (The Shadow of Truth), 5 (The Lower Path), 6 (Borrowed Time)
+shows a completion objective instead of loading. Chambers 5 (The Lower Path), 6 (Borrowed Time)
 and 7 (The Return + hospital ending) are not built yet — see `docs/GAME_DESIGN.md`.
 
 Every saved stage has the same skeleton under one root `Level`:

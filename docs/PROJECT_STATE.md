@@ -2,6 +2,18 @@
 
 Updated 17 October 2026. Game/trailer deadline: Sunday 18 October, 9:30 AM Pakistan time. Gameplay first; retain the seven-chamber story and religious boundaries.
 
+## Stage 4 — The Shadow of Truth (17 October, branch stage-4-shadow-of-truth, local only)
+
+New saved scene `Assets/HellSlice/Scenes/ShadowOfTruth.unity` (StageNumber 4, SlowTimeUnlockStage 3, useLegacyConstruction off, NextScene empty). Three brazier sections over lava: E at each fixed handle moves the brazier between three marked plates; the paired-bar plate latches the section, shows paired cyan bars on that crossing's real stones and one memory (HUD 8 s + world label). Dark flat silhouettes in the other column have no floor. Section 3 exposes the signed receipt; carrying it across Crossing 3 to Mara's case file acknowledges responsibility, opens the gate and previews one reveal step; the exit commits Stage 4 once. Spec: docs/modules/stage-4-shadow-truth.md. QA: docs/qa/stage-4-shadow-of-truth.md.
+
+Code: new `SliceTruthBrazier`, `SliceShadowTruthStage`; `SliceSession`/`SliceInteraction` dispatch to it (5 lines); `SliceBuild.BuildWindows` and EditorBuildSettings include the scene after FeedingFlame. Scene authored once by a temporary batch script from a copy of WeightOfPossession (Stage 2 puzzle objects removed; lava, gate, completion trigger and floor marker reused; existing materials only). Script deleted, not tooling. No other scene, prefab or material changed.
+
+**Not yet done:** Stage 3 → Stage 4 link (`FeedingFlame.unity` `NextScene: ShadowOfTruth`). Held back on purpose: the pushed feature/visual-polish-ui branch (d0c64b9) inserts a line directly above that field, so a main-based edit would conflict. Apply it after Stage 4 moves onto the polish branch (or the branch chosen for integration). The polish tool (Apply Visual Polish) hard-codes four scenes and re-saves all of them; Stage 4 is not in its list.
+
+Verified: batch compile (Unity 6000.3.13f1) exit 0, no errors. Temporary batch play-mode driver: 42/42 PASS (Logs/stage-4-checks.txt): start state, Section 2 locked before 1, wrong positions reveal nothing, each section solves in two presses and stays latched, memories shown, receipt only after Section 3, exit locked before return, real CharacterController carrying jumps across Crossing 3, two diagonal walking jumps in Crossing 1, return opens gate, completion recorded once without scene load, silhouette step falls into lava and reloads, full reset of sections/receipt/gate/health, earlier-stage progress and Q kept. Rendered screenshots in LocalOnly/Stage4Demo. Stage 4-only Windows demo build in Builds/Stage4Demo.
+
+Unverified: human playthrough feel/readability, camera framing on the crossings, performance, the Stage 3 → 4 transition (link pending), polish visuals in this scene. STOP for docs/qa/stage-4-shadow-of-truth.md feedback.
+
 ## Source handoff - 17 October
 
 Developer requested committing/pushing current work and confirmed Unity edits saved. This snapshot includes editable Stages 1-3, Stage 1 Cyclops integration and saved tuning, Stage 2 carrying/parkour, jump/Shift dodge, Stage 3 fast fireballs/falling pillars and the verified trigger-contact fix. Runtime/editor compilation passed again before handoff. Full gameplay QA remains pending; the existing Windows QA ZIP is still the old Stage 1 build. Generated data, logs, local verification projects and builds remain excluded. Earlier notes describing changes as uncommitted/unpushed are historical.
