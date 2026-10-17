@@ -3,7 +3,8 @@ using UnityEngine;
 namespace HellSlice
 {
     // One Stage 4 section: E at the fixed handle moves the brazier to the next authored anchor.
-    // The correct anchor latches the section, showing its route markings and memory. No light/shadow detection.
+    // The correct anchor latches the section: its veil lifts and its route markings, cast shadows and
+    // memory appear. Real stones never change; there is no light/shadow detection.
     public sealed class SliceTruthBrazier : MonoBehaviour
     {
         [Tooltip("Fixed point the player stands near to press E.")]
@@ -18,7 +19,9 @@ namespace HellSlice
         [Min(.05f)] public float MoveDuration = .4f;
         [Tooltip("Optional: stays locked until this section is solved.")]
         public SliceTruthBrazier Prerequisite;
-        [Tooltip("Saved inactive. Paired-bar markings on the real stones.")]
+        [Tooltip("Saved active. Solid barrier at the departure edge; disabled once solved so no jump is committed blind.")]
+        public GameObject Veil;
+        [Tooltip("Saved inactive. Paired-bar markings and cast shadows for the real stones only.")]
         public GameObject Markings;
         [Tooltip("Saved inactive. World text that keeps the memory readable after solving.")]
         public GameObject MemoryLabel;
@@ -76,6 +79,7 @@ namespace HellSlice
             Moving = false;
             if (index != CorrectPosition) return;
             Solved = true;
+            if (Veil != null) Veil.SetActive(false);
             if (Markings != null) Markings.SetActive(true);
             if (MemoryLabel != null) MemoryLabel.SetActive(true);
         }
