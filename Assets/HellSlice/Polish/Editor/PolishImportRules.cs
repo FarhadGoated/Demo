@@ -25,7 +25,7 @@ namespace HellSlice.Polish.EditorTools
         }
         void OnPreprocessModel()
         {
-            if (assetPath.StartsWith("Assets/HellSlice/Polish/Environment/Ruins/"))
+            if (assetPath.StartsWith("Assets/HellSlice/Polish/Environment/Ruins/") || assetPath.StartsWith("Assets/HellSlice/Polish/Environment/Cage/"))
             {
                 // Static kit pieces: the HellStone materials are assigned by hand, so no imported materials, clips or colliders.
                 var k = (ModelImporter)assetImporter;

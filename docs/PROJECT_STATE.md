@@ -10,6 +10,19 @@ Final-stage integration checks: one non-Unity Roslyn pass compiled runtime/edito
 
 Do not launch Unity, enter Play Mode, capture screenshots, repeatedly inspect UI or run automated gameplay tests unless the user explicitly requests it. After code changes, perform at most one targeted compile check without launching Unity, if available; inspect relevant changed code only. Do not repeat successful checks without a new reason. Fix failures narrowly. Keep documentation/reports brief, state unverified behavior, provide expected manual QA results and stop for user feedback.
 
+## Stage 1: Mara's hanging cage (17 October, branch feature/stage1-mara-cage)
+
+Visual only, `FirstPlayable.unity`, built on `4a12a70`. Your teammate's Mara (`SliceMemoryFigure`, the `civilian_girl` prefab and the Mara-Memory materials) is untouched.
+- `Level/Environment/Mara's cage (added)`: a barrel cage hangs on its chain from a ruined column, beam and brace around the existing `Trapped figure`.
+- The lever sits on a stone plinth beside the door, with a warm light framing Mara.
+- `PolishCageRescue`: the cage sways, and the lever pulses once the rescue lock is released (`SwitchLatched`). When the existing help interaction records `Assisted`, the lever is pulled and the door lifts, while `SliceMemoryFigure` fades Mara.
+- The old `Rescue bar` renderers are hidden; their gameplay toggling is unchanged. No colliders or interaction changes.
+- The prompt still reads "Help the trapped figure". Changing it to "Pull the lever" would be a teammate-owned edit in `SliceInteraction`.
+- Record check: only the 3 bar renderers changed and the cage group was added. Mara's prefab overrides and the guardian button keep their original text.
+- `PolishCapture` carries the guardian-hold fix and adds cage shots (`9a`/`9b`/`9c`).
+
+Passed: Windows build and the automated capture (`screenshots/stage1-cage-v2`). Not verified: manual play of the rescue sequence and FPS.
+
 ## Current work — Stage 1 chase into The Unanswered Call (17 October)
 
 Trapped-figure visual: attached the locally imported `Assets/civilian_girl/Prefabs/civilian_girl.prefab` beneath the original figure anchor, preserving its position and rescue/exit logic. Eight placeholder renderers hidden; vendor prefab retained intact. Six project-owned URP transparent material variants give a cool blue-grey shade at 65% opacity; `SliceMemoryFigure` fades the appearance to 0 opacity over 2 seconds after the existing assistance action. Fade pauses with the session and resets on scene reload. Opacity/timing are Inspector fields; tint is on the Mara-Memory materials. Imported package remains local via .gitignore, as the asset handoff requires. One non-Unity runtime compile passed; no Unity/gameplay tests. Model placement, transparency sorting and release presentation need manual QA. Backup/report: `LocalOnly/MaraFigureIntegration`.
