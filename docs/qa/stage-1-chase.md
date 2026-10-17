@@ -1,5 +1,7 @@
 # Stage 1 chase and Unanswered Call — manual QA
 
+- Character visual: the woman replaces the placeholder at the same trapped-figure spot, with a cool shaded/translucent appearance. Release the lock, then press E to help her: she fades fully transparent over 2 seconds while the final gate opens normally. Pausing freezes the fade; Respawn restores her and the rescue puzzle. Check hair/face transparency, facing and foot placement.
+
 - Visual update: stone textures, ruined walls/columns/rubble and distant lava skyline appear without pink/missing materials. Spawn, route clearance, button prompt and both doors remain readable; no floating slab returns. Check wall visuals against existing colliders and laptop frame rate.
 
 - Reach the opening button and press E: the door opens immediately without waiting for a guardian attack. Check E during its wind-up too; the enemy resumes pursuit, and the door still closes after you pass. Respawn restores the button and closed door.

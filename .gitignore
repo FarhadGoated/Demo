@@ -39,3 +39,7 @@ Thumbs.db
 *.pfx
 *.p12
 /LocalOnly/
+
+# Imported Asset Store character; each developer imports through their Unity account.
+/Assets/civilian_girl/
+/Assets/civilian_girl.meta
