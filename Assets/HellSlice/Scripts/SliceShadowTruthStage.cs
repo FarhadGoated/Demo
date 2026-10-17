@@ -34,7 +34,7 @@ namespace HellSlice
             {
                 var session = SliceSession.Current;
                 if (session != null && session.StageCompleted) return "Stage 4 complete / The next chamber is not available yet.";
-                string goal = Evidence != null && Evidence.Lost ? "The receipt was lost in the fire. Step into the lava to restart the chamber."
+                string goal = Evidence != null && Evidence.Lost ? "The receipt was lost in the fire. Press Esc and choose Respawn to restart."
                     : EvidenceReturned ? "The truth is on record. Reach the exit."
                     : carried != null ? "Carry the receipt across the marked stones to Mara's case file."
                     : evidenceExposed ? "Take the signed receipt to Mara's case file."

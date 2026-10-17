@@ -39,4 +39,8 @@ Source repository: [FarhadGoated/Demo](https://github.com/FarhadGoated/Demo), se
 
 ## Third-party model credit
 
+Stage 3 uses [Stylized Stone Pillar](https://sketchfab.com/3d-models/bf6337f03be3464d8f5c113242306722) by Ngakau Blake (Punch-Kat), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Supplied Unity material/prefab retained and scene instances fitted to existing pillars; original license/credit is beside the asset.
+
+Stage 3 uses [lava monster](https://sketchfab.com/3d-models/lava-monster-2e2a1eac6f834857af5347a0662b075d) by [Satwik.Bandi](https://sketchfab.com/Satwik.Bandi), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Supplied FBX renamed, textures downscaled to 1024px, and Unity material, idle controller and flame visual prefab added. Original credit is retained beside the asset.
+
 This work is based on [Cyclops Rig](https://sketchfab.com/3d-models/cyclops-rig-e5cc86878c314f5bae6d7268bb7541d9) by [DM-913](https://sketchfab.com/SuperKapoo913), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Converted to FBX by the teammate; rig helper geometry removed, textures configured for Unity. Original credit is preserved beside the asset.

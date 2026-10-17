@@ -1,5 +1,7 @@
 # Current first playable
 
+**Superseded (17 October):** Stage 1 is now a core-pickup chase with an invulnerable guardian, instant socket placement and escape to Stage 2. Read `modules/stage-1-chase.md` and `qa/stage-1-chase.md`. Space jumps, Shift dodges, Q/time ability stays locked. The combined combat/rescue sequence below is retained as historical context, not current acceptance criteria.
+
 This is the combined-mechanics demonstration chamber, not the complete final Level 1 story.
 
 1. Move/look and use Space dodge; defeat the manifestation guarding the core.
