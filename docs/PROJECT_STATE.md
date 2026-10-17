@@ -14,14 +14,14 @@ Do not launch Unity, enter Play Mode, capture screenshots, repeatedly inspect UI
 
 Visual only, `FirstPlayable.unity`, built on `4a12a70`. Your teammate's Mara (`SliceMemoryFigure`, the `civilian_girl` prefab and the Mara-Memory materials) is untouched.
 - `Level/Environment/Mara's cage (added)`: a barrel cage hangs on its chain from a ruined column, beam and brace around the existing `Trapped figure`.
-- The lever sits on a stone plinth beside the door, with a warm light framing Mara.
-- `PolishCageRescue`: the cage sways, and the lever pulses once the rescue lock is released (`SwitchLatched`). When the existing help interaction records `Assisted`, the lever is pulled and the door lifts, while `SliceMemoryFigure` fades Mara.
+- The lever stands in the rescue cell on the existing rescue-lock pad, at its back edge, and a warm light frames Mara at the cage.
+- `PolishCageRescue`: the cage sways, and the lever pulses until it is used. Releasing the rescue lock (`SwitchLatched`, E on the pad in the cell) pulls the lever and lifts the cage door. Helping Mara at the cage (`Assisted`) dims the cage light while `SliceMemoryFigure` fades her.
 - The old `Rescue bar` renderers are hidden; their gameplay toggling is unchanged. No colliders or interaction changes.
 - The prompt still reads "Help the trapped figure". Changing it to "Pull the lever" would be a teammate-owned edit in `SliceInteraction`.
 - Record check: only the 3 bar renderers changed and the cage group was added. Mara's prefab overrides and the guardian button keep their original text.
-- `PolishCapture` carries the guardian-hold fix and adds cage shots (`9a`/`9b`/`9c`).
+- `PolishCapture` carries the guardian-hold fix and adds cage and lever shots (`9a` to `9e`).
 
-Passed: Windows build and the automated capture (`screenshots/stage1-cage-v2`). Not verified: manual play of the rescue sequence and FPS.
+Passed: Windows build and the automated capture (`screenshots/stage1-cage-v3`). Not verified: manual play of the rescue sequence and FPS.
 
 ## Current work — Stage 1 chase into The Unanswered Call (17 October)
 

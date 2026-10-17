@@ -1,6 +1,6 @@
 # Mara's cage (A12): hanging cage, door and lever
 
-Visual kit for the Stage 1 trapped figure. The cage hangs on its chain from a ruined column and beam, its door lifts, and a lever sits on a stone plinth at the door.
+Visual kit for the Stage 1 trapped figure. The cage hangs on its chain from a ruined column and beam, and its door lifts. The lever stands in the rescue cell on the existing rescue-lock pad.
 
 | File | Contents |
 | --- | --- |
@@ -9,8 +9,9 @@ Visual kit for the Stage 1 trapped figure. The cage hangs on its chain from a ru
 
 The behaviour lives in `Polish/Scripts/PolishCageRescue.cs`, on `Level/Environment/Mara's cage (added)` in `FirstPlayable.unity`. It is visual only and reads the session:
 - The cage sways on its chain.
-- The lever pulses once the rescue lock is released (`SwitchLatched`).
-- When the existing help interaction records `Assisted`, the lever is pulled and the door lifts.
+- The lever pulses until it is used.
+- Releasing the rescue lock (`SwitchLatched`) pulls the lever and lifts the door.
+- Helping Mara (`Assisted`) dims the cage light.
 
 Mara's own fade stays with `SliceMemoryFigure`. No colliders were added; the old placeholder bars are hidden and their gameplay toggling is unchanged.
 
