@@ -18,7 +18,7 @@ These dream chapters are not authoritative Islamic depictions/classifications of
 | Combat and interaction | One short fight releases piece; carry/place and assistance follow | Implemented prototype; updated build verification pending |
 | Accountability | Enemy defeat alone fails to open gate; helping figure opens route | Implemented prototype; updated build verification pending |
 | Transformation/transition | One visible material change, gate opens, next-stage landing | Implemented prototype; updated build verification pending |
-| Seven stages / hospital ending | No footage available; optional planned-story wording only | Unimplemented |
+| Seven stages / hospital ending | Stage 7 (`TheReturn.unity`): the Stage 1 Cyclops returns; bait its telegraphed charge into seals, activate exposed mechanisms, it dissolves; quiet walk where the player becomes fully visible; fade to hospital; "Call Mara back" | Implemented 17 Oct, manual QA pending; waking action pending lead approval |
 
 ## Requirements supplied by user
 
@@ -47,6 +47,10 @@ Target 140 seconds of recorded gameplay leaves 20 seconds above the minimum. Pre
 Record a known tested Windows build. The laptop has a 12th-gen Core i7, 32 GB RAM and Intel Xe graphics. Start with 1280x720 at stable 30 FPS; use 1080p or 60 FPS only if a test with recording enabled demonstrates sufficient headroom. Document settings. Test a short recording for audio, readability and frame pacing first. Hide private notifications and development overlays. Keep real gameplay UI visible where it explains duration, projection and prompts. Capture each beat plus one continuous complete run, with a few seconds before/after each action. Preserve original recording speed in the slow-time demonstration so the mechanic is unambiguous.
 
 Keep raw recordings in ignored `Recordings/` or external storage. Do not commit videos or generated editor caches. Label clips with build identifier, scene, take and action. Record rights for music/audio. Publication, Drive upload and public source push require user authorization.
+
+## Stage 7 beats to capture (17 October, after QA)
+
+Guardian waking as you step in (callback to the Stage 1 chase); a charge telegraph (red ring + lane) dodged with Q so the slow-down is visible; the charge cracking a seal and the E activation stunning it; the dissolve and opening gate; the quiet walk where the last of the shadow lifts (keep the ground shadow in frame); the white fade, hospital room and the single "Call Mara back" press. Closing card text is in-game: "He cannot undo that night. He can choose what he does next." Do not imply forgiveness or an afterlife outcome.
 
 ## Footage inventory
 

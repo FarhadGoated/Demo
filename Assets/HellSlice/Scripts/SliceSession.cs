@@ -33,6 +33,7 @@ namespace HellSlice
         public SliceBorrowedTimeStage BorrowedTime { get; private set; }
         public SlicePrideStage Pride { get; private set; }
         public SliceChaseStage Chase { get; private set; }
+        public SliceReturnStage TheReturn { get; private set; }
         public bool StageCompleted { get; private set; }
         [field: SerializeField] public SliceEnemy Enemy { get; set; }
         public bool Started { get; private set; }
@@ -46,7 +47,7 @@ namespace HellSlice
         public bool GateOpen => PiecePlaced && SwitchLatched && Assisted;
         public string Message { get; private set; }
         float messageTime;
-        public string Objective => Chase != null ? Chase.Objective : Pride != null ? Pride.Objective : BorrowedTime != null ? BorrowedTime.Objective : ShadowTruth != null ? ShadowTruth.Objective : FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
+        public string Objective => TheReturn != null ? TheReturn.Objective : Chase != null ? Chase.Objective : Pride != null ? Pride.Objective : BorrowedTime != null ? BorrowedTime.Objective : ShadowTruth != null ? ShadowTruth.Objective : FeedingFlame != null ? FeedingFlame.Objective : Possession != null ? Possession.Objective : landing ? "A FIRST STEP / The next chamber awaits" :
             Enemy != null && !Enemy.Defeated ? "01 / Face the manifestation. Move clear of its red warning." :
             !PiecePlaced ? "02 / Carry the released ember core to the socket." :
             !SwitchLatched ? "03 / Cross the flame lane. Operate the rescue mechanisms." :
@@ -69,6 +70,7 @@ namespace HellSlice
             BorrowedTime = GetComponent<SliceBorrowedTimeStage>();
             Pride = GetComponent<SlicePrideStage>();
             Chase = GetComponent<SliceChaseStage>();
+            TheReturn = GetComponent<SliceReturnStage>();
             if (useLegacyConstruction)
             {
                 if (Clock == null) Clock = gameObject.AddComponent<SliceTime>();
@@ -105,6 +107,7 @@ namespace HellSlice
             if (BorrowedTime != null) { BorrowedTime.Tick(this); return; }
             if (Pride != null) { Pride.Tick(this); return; }
             if (Chase != null) { Chase.Tick(this); return; }
+            if (TheReturn != null) { TheReturn.Tick(this); return; }
             if (landing) return;
             if (World.RescueSwitch != null)
             {

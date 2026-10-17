@@ -10,7 +10,7 @@ Updated 16 October 2026. Both submissions due Sunday 18 October, 9:30 AM Pakista
 | 2. Weight of Possession | Two matching returns open three short platform routes; grounded carrying jumps and flame variation; exit completes Stage 2 | Separate authored scene implemented; runtime/editor compilation and file checks pass; STOP for guardian/parkour manual QA. Stage 1 remains editable; its false-exit revision stays outstanding |
 | 3. The Feeding Flame / then chamber 4 | Four-pillar fireball encounter with optional Q slow time; later environmental evidence/responsibility | Stage 3 saved scene implemented; compilation/static checks pass; STOP for manual Stage 3 QA. Stage 4 not started |
 | 4. Chambers 5 and 6 | Lower cooperative path, then positioning/timed-hazard assistance | Body movement and mechanisms only; STOP for QA |
-| 5. Chamber 7 and ending | Combined corrective action, transformation, light/hospital/waking choice | Exact waking action still requires agreement; STOP for QA |
+| 5. Chamber 7 and ending | Combined corrective action, transformation, light/hospital/waking choice | Implemented 17 Oct in `TheReturn.unity` (guardian return, three seals, walk, hospital, "Call Mara back" pending lead approval); STOP for QA |
 | 6. Complete build | All seven chambers and ending reachable in Windows build; reliable death recovery | Full manual path QA and basic laptop performance, submission/source checks |
 
 Dependencies: movement/camera, interaction, attack/jump, direct mechanisms, objectives/transitions, seven-chamber path. The combined test chamber does not replace final story ordering. Each phase has one playable outcome, concise specs, targeted checks, manual QA and a stop for feedback.

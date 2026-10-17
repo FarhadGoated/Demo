@@ -10,6 +10,7 @@ Stop Play Mode before editing. In Unity's Project window, open `Assets/HellSlice
 | 4 | ShadowOfTruth.unity |
 | 5 | WeightOfPride.unity |
 | 6 | BorrowedTime.unity |
+| 7 | TheReturn.unity |
 
 Expand `Level` in the Hierarchy. Persistent environment, lighting, player, camera, puzzles, hazards, progression, UI and systems are saved scene objects; Stage 1/3 also contain enemies. No generator is required. The scene's `useLegacyConstruction` is off and object hide flags are zero.
 
@@ -22,6 +23,8 @@ Move/resize objects using their Transforms and save with Ctrl+S. Preserve compon
 Stage 5: see `docs/modules/stage-5-weight-of-pride.md` for the collapse, helper paths, levers and gate. Its exit now targets BorrowedTime.
 
 Stage 6: the hub and three branch routes are under `Level/Environment`. Captives under `Level/Puzzles` expose release range, figure, restraints, escape walkway and waypoint references. `Level/Hazards` contains the two timed jets, moving pillar with end anchors, lava and three fire fronts with approach/contact anchors. `Level/Progression` contains saved return walkways, escape waypoints and the exit. Gameplay Session's `SliceBorrowedTimeStage` exposes the 100-second deadline, 8-second grace, captives, hazards and gate. Q uses the existing world clock. See `docs/modules/stage-6-borrowed-time.md`.
+
+Stage 7: arena, quiet walk and the hospital room (group at x=400) are under `Level/Environment`; Seal 1–3 mechanisms under `Level/Puzzles`; lava and three flame jets under `Level/Hazards`; the returning guardian (Stage 1 prefab + Cyclops) under `Level/Enemies` with its charge tuning on `SliceEnemy`; gate, transformation area and light threshold under `Level/Progression`. `SliceReturnStage` on Gameplay Session holds stun time, ending texts and fade timings. See `docs/modules/stage-7-story.md`.
 
 For all scenes visible together while editing, drag the other scene assets from Project into Hierarchy to open them additively. Each has its own scene heading. Before pressing Play, close the other scenes so exactly one gameplay scene is loaded: these levels overlap in world coordinates and each has its own player, camera and session. Edit/open one at a time for the simplest workflow.
 
