@@ -85,7 +85,7 @@ namespace HellSlice
         }
         void Update()
         {
-            if (Input.Pause && Started && !Dead && !Transitioning) SetPaused(!Paused);
+            if (Input.Pause && Started && !Dead && !Transitioning && !Polish.PolishSettings.IsOpen) SetPaused(!Paused);
             if (!Running) return;
             if (!SlowTimeAvailable) Clock.ResetState();
             Clock.Tick(Time.unscaledDeltaTime);

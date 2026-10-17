@@ -47,7 +47,7 @@ namespace HellSlice
         }
         void OnGUI()
         {
-            var s = SliceSession.Current; if (s == null || s.Player == null) return;
+            var s = SliceSession.Current; if (s == null || s.Player == null || Polish.PolishSettings.IsOpen) return;
             if (title == null) Init();
             GUI.matrix = Matrix4x4.Scale(new Vector3(Screen.width / 1280f, Screen.height / 720f, 1));
             if (MinimalUI)
@@ -106,7 +106,7 @@ namespace HellSlice
             if (GUI.Button(new Rect(s.Dead ? 330 : 650, 420, 300, 48), "Restart chamber", button)) s.Restart();
             if (GUI.Button(new Rect(330, 487, 300, 48), "Controls", button)) showControls = true;
             if (GUI.Button(new Rect(650, 487, 300, 48), s.Feedback.Muted ? "Sound: OFF" : "Sound: ON", button)) s.Feedback.Muted = !s.Feedback.Muted;
-            if (GUI.Button(new Rect(330, 553, 300, 48), showPerformance ? "Performance display: ON" : "Performance display: OFF", button)) showPerformance = !showPerformance;
+            if (!s.Dead && GUI.Button(new Rect(330, 553, 300, 48), "Settings", button)) Polish.PolishSettings.Open();
             if (GUI.Button(new Rect(650, 553, 300, 48), "Quit game", button))
             {
 #if UNITY_EDITOR
