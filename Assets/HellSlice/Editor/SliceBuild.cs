@@ -13,6 +13,9 @@ namespace HellSlice.Editor
         public const string Landing = "Assets/HellSlice/Scenes/NextLanding.unity";
         public const string Possession = "Assets/HellSlice/Scenes/WeightOfPossession.unity";
         public const string FeedingFlame = "Assets/HellSlice/Scenes/FeedingFlame.unity";
+        public const string ShadowOfTruth = "Assets/HellSlice/Scenes/ShadowOfTruth.unity";
+        public const string Pride = "Assets/HellSlice/Scenes/WeightOfPride.unity";
+        public const string BorrowedTime = "Assets/HellSlice/Scenes/BorrowedTime.unity";
 
         [MenuItem("Tools/A Day Through Hell/Open First Playable")]
         public static void Open()
@@ -26,7 +29,7 @@ namespace HellSlice.Editor
             Directory.CreateDirectory("Builds/Windows"); Directory.CreateDirectory("Logs");
             var options = new BuildPlayerOptions
             {
-                scenes = new[] { First, Possession, FeedingFlame, Landing },
+                scenes = new[] { First, Possession, FeedingFlame, ShadowOfTruth, Pride, BorrowedTime, Landing },
                 locationPathName = "Builds/Windows/A day through Hell.exe",
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None

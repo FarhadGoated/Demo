@@ -98,6 +98,7 @@ namespace HellSlice
             GUI.Label(new Rect(330, 163, 620, 70), s.Dead ? "THE DREAM REPEATS" : s.Paused ? "PAUSED" : s.landing ? "A FIRST STEP" : "THE UNANSWERED CALL", title);
             string description = s.Dead ? "Your body fell. The current stage is restarting." :
                 s.Paused ? "Take a moment. The world and your abilities are paused." : s.landing ? "You helped someone instead of walking away. A small part of the shadow has lifted." :
+                s.Chase != null ? "A fictional nightmare. The guardian is behind you. Run forward, take the core to its socket, and escape through the gate. Being caught restarts the stage." :
                 "A fictional dream about responsibility. Defeat the manifestation, restore the crossing, and help the figure who is still waiting. Combat alone cannot open the exit.";
             GUI.Label(new Rect(330, 240, 620, 105), description, body);
             if (!s.Started && !SliceSession.InstructionsSeen)

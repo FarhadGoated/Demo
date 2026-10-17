@@ -15,7 +15,7 @@ namespace HellSlice.Polish
     /// Settings screen in the approved "Cinematic Minimal" style (design 5), with only the options that
     /// matter for this game: Volume, Mouse Sensitivity, Invert Look, Fullscreen, Graphics Quality, Brightness.
     /// Values persist in PlayerPrefs and are re-applied on every scene load.
-    /// Mouse: hover a row, click arrows or bar segments. Keyboard: W/S select, A/D adjust, R reset, Esc back.
+    /// Mouse: hover a row, click arrows or bar segments. Keyboard: W/S select, A/D adjust, Enter act, R reset, Esc resume.
     /// </summary>
     public sealed class PolishSettings : MonoBehaviour
     {
@@ -32,14 +32,14 @@ namespace HellSlice.Polish
 
         sealed class Row
         {
-            public int Section; public RectTransform Rt; public Image Highlight, Edge; public Action<int> Step; public Action Refresh;
+            public int Section; public RectTransform Rt; public Image Highlight, Edge; public Action<int> Step; public Action Refresh, Activate;
             public float Glow;
         }
         readonly List<Row> rows = new List<Row>();
         readonly List<(Text num, Text label, Image bar, RectTransform holder)> tabs = new List<(Text, Text, Image, RectTransform)>();
         readonly Dictionary<Volume, float> baseExposure = new Dictionary<Volume, float>();
         Canvas canvas; CanvasScaler scaler; RectTransform root, content; CanvasGroup group; int focus;
-        static readonly string[] Sections = { "AUDIO", "CONTROLS", "DISPLAY" };
+        static readonly string[] Sections = { "AUDIO", "CONTROLS", "DISPLAY", "CHAMBER" };
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void Boot()
@@ -48,14 +48,40 @@ namespace HellSlice.Polish
             var go = new GameObject("Polish settings"); DontDestroyOnLoad(go);
             Instance = go.AddComponent<PolishSettings>();
         }
-        public static void Open() { if (Instance == null) Boot(); Instance.Show(true); }
-        public static void Close() { if (Instance != null) Instance.Show(false); }
+        public static void Open()
+        {
+            var session = SliceSession.Current;
+            if (session == null || session.Dead || session.Transitioning) return;
+            if (Instance == null) Boot();
+            session.SetPaused(true);
+            Instance.Show(true);
+        }
+        public static void Close() { if (Instance != null) Instance.Back(); }
+        // SliceSession owns Escape input so one press cannot both open and close this screen.
+        public static void Toggle() { if (IsOpen) Close(); else Open(); }
+        public static void Respawn()
+        {
+            var session = SliceSession.Current;
+            if (session == null || session.Dead || session.Transitioning) return;
+            if (Instance != null) Instance.Show(false);
+            session.Restart();
+        }
 
         void Awake()
         {
             Load();
             QualitySettings.SetQualityLevel(Mathf.Clamp(quality, 0, QualitySettings.names.Length - 1), true);
-            SceneManager.sceneLoaded += (_, __) => ApplySceneSettings();
+            SceneManager.sceneLoaded += SceneLoaded;
+        }
+        void SceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (IsOpen) Show(false);
+            ApplySceneSettings();
+        }
+        void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= SceneLoaded;
+            if (Instance == this) Instance = null;
         }
 
         // ================= persistence & application =================
@@ -127,17 +153,16 @@ namespace HellSlice.Polish
             // Rows slide in from the right as the screen fades up.
             content.anchoredPosition = new Vector2(Mathf.Lerp(60, 0, Mathf.SmoothStep(0, 1, group.alpha)), 0);
             var s = SliceSession.Current;
-            // SliceSession ignores its pause toggle while this screen is open, so Esc is ours alone:
-            // close and return to whichever menu opened us, with no unpaused frame in between.
-            if (s != null && s.Started && !s.Paused && !s.Dead) { Show(false); s.SetPaused(true); return; } // e.g. scene reloaded under us
+            if (s == null || s.Dead || s.Transitioning) { Show(false); return; }
             var k = Keyboard.current;
             if (k != null)
             {
-                if (k.escapeKey.wasPressedThisFrame) { Back(); return; }
                 if (k.wKey.wasPressedThisFrame || k.upArrowKey.wasPressedThisFrame) { SetFocus((focus + rows.Count - 1) % rows.Count); Cue(440); }
                 if (k.sKey.wasPressedThisFrame || k.downArrowKey.wasPressedThisFrame) { SetFocus((focus + 1) % rows.Count); Cue(440); }
                 if (k.aKey.wasPressedThisFrame || k.leftArrowKey.wasPressedThisFrame) StepFocused(-1);
                 if (k.dKey.wasPressedThisFrame || k.rightArrowKey.wasPressedThisFrame) StepFocused(1);
+                if ((k.enterKey.wasPressedThisFrame || k.numpadEnterKey.wasPressedThisFrame) && rows[focus].Activate != null)
+                { rows[focus].Activate(); return; }
                 if (k.rKey.wasPressedThisFrame) ResetDefaults();
             }
             // Animate row highlight and rail.
@@ -160,7 +185,7 @@ namespace HellSlice.Polish
                 label.color = Color.Lerp(PolishCine.TextMuted, PolishCine.TextMain, a);
             }
         }
-        void Back() { var s = SliceSession.Current; Show(false); if (s != null && s.Started && !s.Dead) s.SetPaused(true); }
+        void Back() { var s = SliceSession.Current; Show(false); if (s != null && s.Started && !s.Dead && !s.Transitioning) s.SetPaused(false); }
         void SetFocus(int i) { focus = Mathf.Clamp(i, 0, rows.Count - 1); }
         void StepFocused(int d) { rows[focus].Step(d); rows[focus].Refresh(); Save(); Cue(d > 0 ? 620 : 520); }
         void RefreshAll() { foreach (var r in rows) r.Refresh(); }
@@ -180,12 +205,12 @@ namespace HellSlice.Polish
             var sc = scaler = cgo.GetComponent<CanvasScaler>(); sc.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             sc.referenceResolution = new Vector2(1920, 1080); sc.matchWidthOrHeight = .5f;
 
-            // Small corner hint during play: teaches the F1 key without cluttering the view.
+            // Keep the existing hint styling with the single pause/settings key.
             hint = PolishCine.Rect(canvas.transform, "Settings hint", new Vector2(1, 1), new Vector2(-40, -34), new Vector2(260, 40), new Vector2(1, 1));
             hintGroup = hint.gameObject.AddComponent<CanvasGroup>(); hintGroup.blocksRaycasts = false; hintGroup.interactable = false;
             var hcap = PolishCine.Rect(hint, "Key", new Vector2(1, .5f), new Vector2(-146, 0), new Vector2(52, 34), new Vector2(1, .5f));
             PolishCine.Img(hcap, PolishCine.Keycap, new Color(.9f, .9f, .9f), sliced: true);
-            PolishCine.Label(PolishCine.Stretch(hcap, "F1"), "F1", PolishCine.BodyBold, 19, Color.white, TextAnchor.MiddleCenter);
+            PolishCine.Label(PolishCine.Stretch(hcap, "ESC"), "ESC", PolishCine.BodyBold, 19, Color.white, TextAnchor.MiddleCenter);
             PolishCine.Label(PolishCine.Rect(hint, "Label", new Vector2(1, .5f), Vector2.zero, new Vector2(132, 34), new Vector2(1, .5f)), "SETTINGS", PolishCine.Body, 22, new Color(.9f, .9f, .9f), TextAnchor.MiddleRight, 2);
 
             // Big clickable button on the pause screen.
@@ -198,7 +223,7 @@ namespace HellSlice.Polish
             PolishCine.Img(edge, PolishCine.White, PolishCine.Accent);
             var pcap = PolishCine.Rect(pauseButton, "Key", new Vector2(0, .5f), new Vector2(30, 0), new Vector2(60, 40), new Vector2(0, .5f));
             PolishCine.Img(pcap, PolishCine.Keycap, new Color(.9f, .9f, .9f), sliced: true);
-            PolishCine.Label(PolishCine.Stretch(pcap, "F1"), "F1", PolishCine.BodyBold, 22, Color.white, TextAnchor.MiddleCenter);
+            PolishCine.Label(PolishCine.Stretch(pcap, "ESC"), "ESC", PolishCine.BodyBold, 22, Color.white, TextAnchor.MiddleCenter);
             PolishCine.Label(PolishCine.Rect(pauseButton, "Label", new Vector2(0, .5f), new Vector2(112, 2), new Vector2(250, 70), new Vector2(0, .5f)), "SETTINGS", PolishCine.Display, 50, Color.white, TextAnchor.MiddleLeft, 4);
         }
 
@@ -212,13 +237,6 @@ namespace HellSlice.Polish
             scaler.matchWidthOrHeight = (float)Screen.width / Mathf.Max(1, Screen.height) < 1.77f ? 0 : 1;
             hintGroup.alpha = Mathf.MoveTowards(hintGroup.alpha, playing ? .55f : 0, Time.unscaledDeltaTime * 4);
             pauseGroup.alpha = paused ? 1 : 0; pauseGroup.blocksRaycasts = paused; pauseGroup.interactable = paused;
-            // F1 opens Settings from anywhere: pause first if the world is running.
-            var k = Keyboard.current;
-            if (usable && k != null && k.f1Key.wasPressedThisFrame)
-            {
-                if (s.Running) s.SetPaused(true);
-                Open(); Cue(440);
-            }
         }
 
         // ================= construction =================
@@ -262,18 +280,31 @@ namespace HellSlice.Polish
                 d => { int n = QualitySettings.names.Length; quality = (QualitySettings.GetQualityLevel() + d + n) % n; QualitySettings.SetQualityLevel(quality, true); });
             y = BarRow(y, 2, "Brightness", "Lift the darkness without washing out the fire", 0, 10, () => brightnessStep, v => { brightnessStep = v; ApplySceneSettings(); },
                 () => (Brightness >= 0 ? "+" : "") + Brightness.ToString("0.0"));
+            ActionRow(y - 24, 3, "Respawn", "Restart this chamber; keep earlier stage progress.", Respawn);
 
             // Key-hint footer (clickable for mouse players).
             var foot = PolishCine.Rect(root, "Hint bar", new Vector2(0, 0), Vector2.zero, new Vector2(0, 90), new Vector2(0, 0));
             foot.anchorMax = new Vector2(1, 0); foot.sizeDelta = new Vector2(0, 90);
             PolishCine.Img(foot, PolishCine.White, new Color(0, 0, 0, .6f));
             float hx = -110;
-            hx = Hint(foot, hx, "ESC", "BACK", Back);
+            hx = Hint(foot, hx, "ESC", "RESUME", Back);
             hx = Hint(foot, hx, "R", "RESET DEFAULTS", ResetDefaults);
             hx = Hint(foot, hx, "A  D", "ADJUST", null);
             Hint(foot, hx, "W  S", "SELECT", null);
 
             root.gameObject.SetActive(false);
+        }
+
+        void ActionRow(float y, int section, string name, string description, Action action)
+        {
+            var row = NewRow(y, section, name, description);
+            PolishCine.Label(PolishCine.Rect(row.Rt, "Action", new Vector2(1, .5f), new Vector2(-24, 2),
+                new Vector2(360, 60), new Vector2(1, .5f)), "ENTER / RESPAWN", PolishCine.Display, 40,
+                PolishCine.Accent, TextAnchor.MiddleRight, 1);
+            row.Step = _ => { }; // Adjusting settings must never trigger a stage reset.
+            row.Refresh = () => { };
+            row.Activate = action;
+            Clickable(row.Rt.gameObject, row.Highlight, Selectable.Transition.None, action);
         }
 
         Row NewRow(float y, int section, string name, string desc)

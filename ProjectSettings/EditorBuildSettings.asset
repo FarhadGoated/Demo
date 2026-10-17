@@ -15,6 +15,15 @@ EditorBuildSettings:
     path: Assets/HellSlice/Scenes/FeedingFlame.unity
     guid: d61fef84b1af4197adb0f4be40329fd1
   - enabled: 1
+    path: Assets/HellSlice/Scenes/ShadowOfTruth.unity
+    guid: f06972e3aae53e04eb95a9309d03c1bf
+  - enabled: 1
+    path: Assets/HellSlice/Scenes/WeightOfPride.unity
+    guid: 4bb223c32013665449e18dbab4b127ff
+  - enabled: 1
+    path: Assets/HellSlice/Scenes/BorrowedTime.unity
+    guid: f1da6e5a6d504ec9b47f2c112a891166
+  - enabled: 1
     path: Assets/HellSlice/Scenes/NextLanding.unity
     guid: b86963a2252244caa4d38935fc425f96
   - enabled: 0

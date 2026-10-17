@@ -29,7 +29,13 @@ If a merge ever conflicts in a stage scene: keep **your** version of the scene, 
 - Models: Business Man (CC0, Quaternius) and Cyclops (CC BY 4.0, DM-913) — see `ASSET_REGISTER.md` for the required Cyclops credit line.
 - Performance: one shadowed directional light, unshadowed point lights only inside active flame rows, modest particle counts. Check FPS on the Intel Xe laptop at 720p with recording on.
 
+## UI and local integration update — 17 October
+
+The subsequent Settings commits through `9361833` are applied locally: Cinematic Minimal screen, Bebas Neue and Barlow fonts with OFL notices. The latest user-requested revision opens/closes this screen with Esc, removes F1 and adds a styled CHAMBER/Respawn action. Existing gameplay UI remains. Camera sensitivity/invert, volume, brightness, quality and fullscreen are exposed by the imported Settings implementation.
+
+The integration preserved authored transforms, colliders and existing gameplay/prefab values. Original scene files are backed up under `LocalOnly/VisualIntegration/before`. Remote visual records were applied without running the setup generator against the user project. Claude's Stage 4 was subsequently merged through `7d5477c` and linked from Stage 3; its saved scene keeps its authored visuals.
+
 ## Not included yet
 
 - Character animation (models are static poses; animation is a separate decision).
-- New UI (title/pause/settings) — kept on a separate commit pending approval.
+- A replacement title/pause design beyond the Settings launcher.

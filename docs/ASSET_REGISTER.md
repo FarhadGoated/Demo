@@ -1,5 +1,9 @@
 # Asset register
 
+A09 — StonePillar supplied by `feature/visual-polish-ui`, applied to Stage 3's four falling pillars (Stage 6 attachment removed per user correction). “Stylized Stone Pillar” by Ngakau Blake (Punch-Kat), https://sketchfab.com/3d-models/bf6337f03be3464d8f5c113242306722, CC BY 4.0. Source/license and supplied textures/material/prefab retained under `Assets/HellSlice/Polish/Environment/StonePillar`; visuals fit existing pillar height without changing colliders. Unity import/rendering remains unverified.
+
+17 October — A07 integrated: `Assets/HellSlice/Polish/Characters/LavaGiant`, supplied by `feature/visual-polish-ui` (asset commit `a7e7dae`). “lava monster” by Satwik.Bandi, https://sketchfab.com/3d-models/lava-monster-2e2a1eac6f834857af5347a0662b075d, CC BY 4.0; license/credit retained beside asset and in README. Supplied 1024px textures, URP emissive material, idle controller and visual prefab retained. Attached only to Stage 3's existing entity; importer preserves this asset's idle animation. Unity import/rendering/animation/performance remain unverified in this integration.
+
 The partner's Cyclops model/textures are integrated as Stage 1's ore guardian visual. Other current artwork remains placeholder geometry/materials under Assets/HellSlice. This is an inventory and review ledger, not legal clearance. Record evidence before public source publication.
 
 | ID | Files / purpose | Source / creator / tool | License and attribution | Public source redistribution | Integration status |
@@ -27,3 +31,5 @@ New primitives/materials/code created for the project should also be identified 
 A06 integration corrected to Stage 1 per developer direction: Cyclops-URP.mat assigns supplied base colour/normal textures; Cyclops-Visual.prefab preserves the model link and normalizes height to 1.8m. FirstPlayable's existing ore guardian now has this visual as a child at local identity, with Appearance assigned. Stage 3 uses its large primitive visual again. Unity 6000.3.13f1 isolated model import/export previously succeeded; scene import/rendering/performance still need QA. Existing source license retained; full attribution remains in README. No additional animation or third-party assets added.
 
 Latest remote fetch (17 October) still ends at c62457c on feature/visual-polish-ui. HellSky/background assets are not in any fetched branch; shared use across levels is approved once supplied. No substitute shader or scenery was created.
+
+Superseding integration update (17 October): fetched `feature/visual-polish-ui` at `9361833` and applied the supplied A01 Business Man model, SHADER-01 procedural shaders/materials, flame/atmosphere/post-processing prefabs and Settings UI with the supplied Bebas Neue/Barlow OFL notices. Existing A06 Cyclops integration is preserved. Earlier statements that these assets were unavailable are historical. Models have no supplied animation controller/clips; manual rendering/performance QA remains pending. No publication or new build performed.
