@@ -1,0 +1,16 @@
+Model Information:
+* title:	Stylized Stone Pillar
+* source:	https://sketchfab.com/3d-models/bf6337f03be3464d8f5c113242306722
+* author:	Ngakau Blake (https://sketchfab.com/Punch-Kat)
+* published:	9 June 2024 (Sketchfab); downloaded 17 October 2026
+* author's description: "Rock prop made in the art-style of Borderlands." (original model in that style, not a game asset)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+Credit:
+This work is based on "Stylized Stone Pillar" (https://sketchfab.com/3d-models/bf6337f03be3464d8f5c113242306722) by Ngakau Blake (https://sketchfab.com/Punch-Kat) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+
+Changes: files renamed (NgakauBlake_Rock_LOD0.fbx -> StonePillar.fbx; Diff/Nrm/Emissive/AO -> StonePillar_BaseColor/Normal/Emissive/Occlusion.png;
+Metal/Roughness not used); Unity URP material and visual prefab (scaled to 4.2 m) added for this project.
