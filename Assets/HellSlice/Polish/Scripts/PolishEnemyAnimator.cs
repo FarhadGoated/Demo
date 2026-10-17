@@ -18,8 +18,11 @@ namespace HellSlice.Polish
 
         void Awake()
         {
-            if (!UseRestShoulders) return;
+            enemy = GetComponentInParent<SliceEnemy>();
             if (Animator == null) Animator = GetComponentInChildren<Animator>();
+            if (Animator != null) { Animator.applyRootMotion = false; Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate; }
+            if (enemy != null) { lastPosition = enemy.transform.position; lastHealth = enemy.Health; }
+            if (!UseRestShoulders) return;
             if (Animator == null || !Animator.isHuman) return;
             leftShoulder = Animator.GetBoneTransform(HumanBodyBones.LeftShoulder);
             rightShoulder = Animator.GetBoneTransform(HumanBodyBones.RightShoulder);
@@ -32,18 +35,11 @@ namespace HellSlice.Polish
         SliceEnemy enemy;
         Vector3 lastPosition;
         int lastHealth;
+        bool sampledHealth;
         string lastState;
         static readonly int SpeedId = Animator.StringToHash("Speed"), AttackId = Animator.StringToHash("Attack"),
             HitId = Animator.StringToHash("Hit"), DeadId = Animator.StringToHash("Dead"),
             StunnedId = Animator.StringToHash("Stunned"), DormantId = Animator.StringToHash("Dormant");
-
-        void Start()
-        {
-            enemy = GetComponentInParent<SliceEnemy>();
-            if (Animator == null) Animator = GetComponentInChildren<Animator>();
-            if (Animator != null) { Animator.applyRootMotion = false; Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate; }
-            if (enemy != null) { lastPosition = enemy.transform.position; lastHealth = enemy.Health; }
-        }
 
         void Update()
         {
@@ -64,8 +60,10 @@ namespace HellSlice.Polish
             Animator.SetBool(StunnedId, state == "Stunned");
             Animator.SetBool(DormantId, state == "Dormant");
             Animator.SetBool(DeadId, enemy.Defeated || state == "Dissolving" || state == "Dissolved");
-            if (enemy.Health < lastHealth && !enemy.Defeated) Animator.SetTrigger(HitId);
+            // Gameplay may set encounter health in Start, after our Awake.
+            if (sampledHealth && enemy.Health < lastHealth && !enemy.Defeated) Animator.SetTrigger(HitId);
             lastHealth = enemy.Health;
+            sampledHealth = true;
         }
 
         void LateUpdate()

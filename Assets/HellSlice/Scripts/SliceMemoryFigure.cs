@@ -4,13 +4,16 @@ using UnityEngine.Rendering;
 
 namespace HellSlice
 {
-    // Visual response to the existing assistance state; never changes rescue or stage progression.
+    // The cage release drives the memory's faint/fade; completion uses the existing assistance action.
     public sealed class SliceMemoryFigure : MonoBehaviour
     {
         public GameObject Appearance;
-        [Range(0, 1)] public float BoundOpacity = .65f;
+        public Polish.PolishCageRescue CageRelease;
+        [Range(0, 1)] public float BoundOpacity = 1f;
         [Range(0, 1)] public float ReleasedOpacity;
         [Min(.1f)] public float FadeSeconds = 2f;
+        [Min(.1f)] public float FaintSeconds = .85f;
+        public Vector3 FaintRotation = new Vector3(0, 0, 75);
         public bool Released { get; private set; }
 
         sealed class Surface
@@ -23,10 +26,14 @@ namespace HellSlice
 
         readonly List<Surface> surfaces = new List<Surface>();
         float elapsed;
+        Vector3 standingPosition;
+        Quaternion standingRotation;
 
         void Awake()
         {
             if (Appearance == null) return;
+            standingPosition = Appearance.transform.localPosition;
+            standingRotation = Appearance.transform.localRotation;
             foreach (var renderer in Appearance.GetComponentsInChildren<Renderer>(true))
             {
                 renderer.shadowCastingMode = ShadowCastingMode.Off;
@@ -50,10 +57,19 @@ namespace HellSlice
         {
             var session = SliceSession.Current;
             if (session == null || !session.Running) return;
-            if (!Released && session.Assisted) Released = true;
-            if (!Released || elapsed >= FadeSeconds) return;
-            elapsed = Mathf.Min(elapsed + Time.unscaledDeltaTime, FadeSeconds);
-            ApplyOpacity(Mathf.Lerp(BoundOpacity, ReleasedOpacity, Mathf.SmoothStep(0, 1, elapsed / FadeSeconds)));
+            if (!Released && (CageRelease != null ? CageRelease.Lifted : session.Assisted)) Released = true;
+            if (!Released) return;
+            float duration = Mathf.Max(.1f, Mathf.Max(FadeSeconds, FaintSeconds));
+            elapsed = Mathf.Min(elapsed + session.Clock.WorldDelta, duration);
+            if (Appearance != null && CageRelease != null)
+            {
+                float faint = Mathf.SmoothStep(0, 1, Mathf.Clamp01(elapsed / Mathf.Max(.1f, FaintSeconds)));
+                Appearance.transform.localRotation = standingRotation * Quaternion.Euler(FaintRotation * faint);
+                Appearance.transform.localPosition = standingPosition + Vector3.up * (.12f * faint);
+            }
+            float fade = Mathf.Clamp01(elapsed / Mathf.Max(.1f, FadeSeconds));
+            ApplyOpacity(Mathf.Lerp(BoundOpacity, ReleasedOpacity, Mathf.SmoothStep(0, 1, fade)));
+            if (CageRelease != null && elapsed >= duration && !session.Assisted) session.Assist();
         }
 
         void ApplyOpacity(float opacity)

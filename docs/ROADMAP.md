@@ -6,7 +6,7 @@ Updated 17 October 2026. The playable game is six stages. Borrowed Time is archi
 
 | Milestone | Playable outcome | Status / gate |
 | --- | --- | --- |
-| 1. Unanswered Call | Invulnerable guardian chase, core placement, escape; death resets Stage 1 | Implemented; manual QA remains in its checklist |
+| 1. Unanswered Call | Guardian chase, door button/closure, rescue levers, lifting cage and memory release; death resets Stage 1 | User accepted complete 18 Oct 2026; sound deferred to final audio pass |
 | 2. Weight of Possession | Matching returns open routes; death resets current stage | Implemented |
 | 3. The Feeding Flame | Fireball encounter with optional Q slow time | Implemented |
 | 4. The Shadow of Truth | Brazier positions reveal safe routes and evidence | Implemented |

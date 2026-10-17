@@ -5,6 +5,7 @@ Shader "HellSlice/Memory Soul"
         _BaseMap("Texture", 2D) = "white" {}
         _BaseColor("Soul Tint", Color) = (0.44, 0.62, 0.72, 0.65)
         _EmissionColor("Soul Glow", Color) = (0.02, 0.045, 0.065, 1)
+        _MinimumLight("Minimum Soul Lighting", Range(0, 2)) = 0.85
         [Toggle] _AlphaClip("Texture Cutout", Float) = 0
         _Cutoff("Texture Cutoff", Range(0, 1)) = 0.5
     }
@@ -30,6 +31,7 @@ Shader "HellSlice/Memory Soul"
                 half4 _EmissionColor;
                 half _AlphaClip;
                 half _Cutoff;
+                half _MinimumLight;
             CBUFFER_END
 
             struct Attributes
@@ -69,7 +71,7 @@ Shader "HellSlice/Memory Soul"
 
                 half3 normal = normalize(input.normalWS);
                 Light light = GetMainLight();
-                half3 lighting = max(SampleSH(normal), half3(0.18, 0.18, 0.18));
+                half3 lighting = max(SampleSH(normal), half3(_MinimumLight, _MinimumLight, _MinimumLight));
                 lighting += light.color * saturate(dot(normal, light.direction)) * light.distanceAttenuation;
                 return half4(tex.rgb * _BaseColor.rgb * lighting + _EmissionColor.rgb, 1);
             }

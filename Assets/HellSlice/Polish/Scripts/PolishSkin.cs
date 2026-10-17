@@ -42,7 +42,7 @@ namespace HellSlice.Polish
         const string DefaultPlayerController = "PolishPlayerAnimator"; // Polish/Resources, used when Controller is empty
         static readonly int RevealId = Shader.PropertyToID("_Reveal"), HitPropId = Shader.PropertyToID("_Hit");
 
-        void Start()
+        void Awake()
         {
             player = GetComponent<SlicePlayer>();
             enemy = GetComponent<SliceEnemy>();

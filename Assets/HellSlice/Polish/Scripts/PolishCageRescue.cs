@@ -18,13 +18,14 @@ namespace HellSlice.Polish
         [Min(0)] public float LiftDelay = .35f;
         [Min(.1f)] public float LiftSeconds = 1.4f;
         public float DimSeconds = 2f;
+        public bool Lifted { get; private set; }
 
         Vector3 cageLowered;
         Quaternion cageRest;
         bool opened, dimmed;
         float lightStart;
 
-        void Start()
+        void Awake()
         {
             if (Cage != null) { cageLowered = Cage.localPosition; cageRest = Cage.localRotation; }
             if (CageLight != null) lightStart = CageLight.intensity;
@@ -59,6 +60,7 @@ namespace HellSlice.Polish
                 yield return null;
             }
             if (Cage != null) Cage.localPosition = cageLowered + Vector3.up * LiftHeight;
+            Lifted = true;
         }
 
         IEnumerator Dim()

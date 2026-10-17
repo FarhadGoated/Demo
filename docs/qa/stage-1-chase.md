@@ -1,6 +1,8 @@
 # Stage 1 chase and Unanswered Call — manual QA
 
-- Character visual: the woman replaces the placeholder at the same trapped-figure spot, with a cool shaded/translucent appearance. Release the lock, then press E to help her: she fades fully transparent over 2 seconds while the final gate opens normally. Pausing freezes the fade; Respawn restores her and the rescue puzzle. Check hair/face transparency, facing and foot placement.
+Status: user accepted Stage 1 as complete on 18 October 2026. Sound is deferred to the final audio pass. Checklist retained for future regression checks.
+
+- Character visual: the woman starts fully opaque and readable. After the second rescue lever, the entire cage lifts; once raised, she faints and fades out over 2 seconds, automatically completing assistance and opening the final gate. Pause freezes the sequence; Respawn restores her and the puzzle. Check face/clothes, faint clearance and reset.
 
 - Visual update: stone textures, ruined walls/columns/rubble and distant lava skyline appear without pink/missing materials. Spawn, route clearance, button prompt and both doors remain readable; no floating slab returns. Check wall visuals against existing colliders and laptop frame rate.
 

@@ -21,7 +21,7 @@ namespace HellSlice.Polish
         bool pulled;
         static readonly int EmissionId = Shader.PropertyToID("_EmissionColor");
 
-        void Start() { block = new MaterialPropertyBlock(); Set(0); }
+        void Awake() { block = new MaterialPropertyBlock(); Set(0); }
 
         void Update()
         {
